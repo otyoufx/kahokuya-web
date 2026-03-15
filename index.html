@@ -97,7 +97,32 @@
 
 <body>
   <div class="overlay">
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+		<script>
+		  // Nitter RSS
+		  const rssUrl = "https://nitter.net/kahokuya_riki/rss";
+
+		  fetch(rssUrl)
+		    .then(res => res.text())
+		    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+		    .then(data => {
+		      const item = data.querySelector("item");
+		      if (!item) return;
+
+		      // 最新ツイートのURLを取得
+		      const tweetUrl = item.querySelector("link").textContent;
+
+		      // Twitframe に渡す
+		      const twitframeUrl = "https://twitframe.com/show?url=" + encodeURIComponent(tweetUrl);
+
+		      // iframe にセット
+		      document.getElementById("tweet-frame").src = twitframeUrl;
+		    })
+		    .catch(err => {
+		      document.getElementById("tweet-frame").outerHTML =
+		        "<p>最新情報を取得できませんでした。</p>";
+		    });
+		</script>
 
     <h1>山形肉そば 河北や</h1>
     <div class="tagline">山形県河北町のご当地そばを戸田で。</div>
@@ -191,12 +216,16 @@
     </div>
 
     <!-- X -->
-    <div class="card small-card">
-      <div class="section-title">店主のX(最新情報はこちらで更新中)</div>
-      <a class="twitter-timeline" href="https://twitter.com/kahokuya_riki">Tweets by kahokuya_riki</a>
-      <div style="border:1px solid #ccc; padding:12px; border-radius:8px; background:#f9f9f9; text-align:center; font-size:0.75rem;">
-      </div>
-    </div>
+		<div class="card small-card">
+		  <div class="section-title">店主のX（最新情報）</div>
+		  <iframe id="tweet-frame"
+		    width="100%"
+		    height="600"
+		    frameborder="0"
+		    scrolling="no"
+		    style="border-radius: 12px; background:#f9f9f9;">
+		  </iframe>
+		</div>
 
     <!-- お品書き -->
     <div class="card small-card">
