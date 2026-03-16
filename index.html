@@ -95,7 +95,8 @@
     footer {
       text-align: center;
       font-size: 0.7rem;
-      color: #666;
+      /* color: #666; */
+      color: #fff;
       margin-top: 20px;
     }
 
@@ -146,7 +147,7 @@
 		    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
 		    .then(data => {
 		      const item = data.querySelector("item");
-		      if (!item) return;
+		      if (!item) throw new Error("No tweet found");
 
 		      // 最新ツイートのURLを取得
 		      const tweetUrl = item.querySelector("link").textContent;
@@ -155,12 +156,28 @@
 		      const twitframeUrl = "https://twitframe.com/show?url=" + encodeURIComponent(tweetUrl);
 
 		      // iframe にセット
-		      document.getElementById("tweet-frame").src = twitframeUrl;
+		      const frame = document.getElementById("tweet-frame");
+		      frame.src = twitframeUrl;
+
+		      // fallback のリンク先もセット
+		      document.getElementById("tweet-link").href = tweetUrl;
+
+		      // 5秒後に読み込みチェック
+		      setTimeout(() => {
+		        if (frame.contentWindow === null || frame.offsetHeight < 50) {
+		          document.getElementById("tweet-fallback").style.display = "block";
+		        }
+		      }, 5000);
 		    })
 		    .catch(err => {
-		      document.getElementById("tweet-frame").outerHTML =
-		        "<p>最新情報を取得できませんでした。</p>";
+		      // RSS取得失敗時
+		      document.getElementById("tweet-fallback").style.display = "block";
 		    });
+
+		  // 再読み込みボタン
+		  document.getElementById("tweet-reload").addEventListener("click", () => {
+		    location.reload();
+		  });
 		</script>
 
     <h1>山形肉そば 河北や</h1>
@@ -245,9 +262,10 @@
       </ul>
     </div>
 
-    <!-- X -->
+		<!-- X -->
 		<div class="card small-card">
 		  <div class="section-title">店主のX（最新情報）</div>
+
 		  <iframe id="tweet-frame"
 		    width="100%"
 		    height="600"
@@ -255,7 +273,17 @@
 		    scrolling="no"
 		    style="border-radius: 12px; background:#f9f9f9;">
 		  </iframe>
+
+		  <!-- 読み込み失敗時に表示される部分（最初は非表示） -->
+		  <div id="tweet-fallback" style="display:none; margin-top:10px; font-size:0.85rem; text-align:center;">
+		    表示されない場合は
+		    <a id="tweet-link" href="#" target="_blank">こちらをクリック</a><br>
+		    <button id="tweet-reload" style="margin-top:6px; padding:4px 10px; border-radius:6px; border:1px solid #ccc;">
+		      再読み込み
+		    </button>
+		  </div>
 		</div>
+
 
 		<div class="card small-card">
 		  <div class="section-title">お品書き</div>
@@ -411,7 +439,6 @@
 
   </div>
     <footer>© 2007-2026 山形肉そば 河北や</footer>
-
   </div>
 
 	<script>
