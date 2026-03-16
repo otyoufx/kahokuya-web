@@ -261,14 +261,15 @@
 
 		  <!-- タブ -->
 		  <div class="menu-tabs" style="display:flex; gap:8px; margin-bottom:12px;">
-		    <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ</div>
-		    <div class="menu-tab" data-target="dinner" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ディナー</div>
-		    <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">土日</div>
+		    <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（平日）</div>
+		    <div class="menu-tab" data-target="dinner" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ディナー（平日・土曜）</div>
+		    <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（土曜・日曜）</div>
 		  </div>
 
 		  <!-- ▼ ランチ -->
 			<div class="menu-content" id="lunch" style="display:block;">
 			  <strong style="font-size:0.9rem;">【ランチ（平日）】</strong>
+			  <div class="menu-category">単品メニュー</div>
 			  <ul class="menu-list">
 			    <li><span>肉そば（冷・温）</span><span class="price">750円</span></li>
 			    <li><span>肉そば 肉ダブル（冷・温）</span><span class="price">950円</span></li>
@@ -280,27 +281,42 @@
 			    <li><span>特製カレーライス（チーズ入り）</span><span class="price">950円</span></li>
 			    <li><span>スペシャルカレー（温玉＋チーズ）</span><span class="price">1080円</span></li>
 			    <li><span>特製カツカレー</span><span class="price">1350円</span></li>
+			  </ul>
 
+			  <div class="menu-category">セットメニュー</div>
+			  <ul class="menu-list">
 			    <li><span>ミニカツ丼＋肉そば（冷・温）</span><span class="price">1150円</span></li>
 			    <li><span>ミニカツ丼＋肉中華（冷・温）</span><span class="price">1250円</span></li>
 			    <li><span>ミニカツ丼＋肉中華（冷・温）大盛セット</span><span class="price">1350円</span></li>
-
 			    <li><span>サービスランチ 肉そば（冷・温）</span><span class="price">1100円</span></li>
 			    <li><span>サービスランチ 肉中華（冷・温）</span><span class="price">1200円</span></li>
+			  </ul>
 
+			  <div class="menu-category">肉そばトッピング</div>
+			  <ul class="menu-list">
 			    <li><span>わかめ・生卵</span><span class="price">80円</span></li>
 			    <li><span>揚げ餅</span><span class="price">130円</span></li>
-			    <li><span>単品C</span><span class="price">200円</span></li>
 			    <li><span>麺大盛</span><span class="price">200円</span></li>
 			    <li><span>肉ダブル追加</span><span class="price">200円</span></li>
+			  </ul>
 
-			    <li><span>生ビール</span><span class="price">580円</span></li>
+			  <div class="menu-category">その他</div>
+			  <ul class="menu-list">
+			    <li><span>単品C</span><span class="price">200円</span></li>
+			  </ul>
+
+			  <div class="menu-category">ドリンク</div>
+			  <ul class="menu-list">
+          <li><span>生ビール</span><span class="price">580円</span></li>
 			  </ul>
 			</div>
 
 		  <!-- ▼ ディナー -->
 			<div class="menu-content" id="dinner" style="display:none;">
 			  <strong style="font-size:0.9rem;">【ディナー（平日・土曜）】</strong>
+        ※日によって欠品しているメニューもあります。<br>
+        　当日あるかは店主にご確認ください。<br>
+        <br>
 			  <!-- 名物・山形料理 -->
 			  <div class="menu-category">名物・山形料理</div>
 			  <ul class="menu-list">
@@ -311,6 +327,7 @@
 			    <li><span>山形牛モツ煮込み</span><span class="price">780円</span></li>
 			    <li><span>もってのほか（食用菊）</span><span class="price">480円</span></li>
 			    <li><span>ぶんせりのおひたし</span><span class="price">580円</span></li>
+			    <li><span>ねぎのせ</span><span class="price">480円</span></li>
 			  </ul>
 
 			  <!-- 刺身・冷菜 -->
@@ -334,6 +351,9 @@
 			    <li><span>そば味噌漬</span><span class="price">580円</span></li>
 			    <li><span>もろこしかき揚げ</span><span class="price">580円</span></li>
 			    <li><span>真鯛岩塩焼き</span><span class="price">880円</span></li>
+			    <li><span>三段シュウマイ</span><span class="price">580円</span></li>
+			    <li><span>ポークジンジャー</span><span class="price">580円</span></li>
+			    <li><span>六宝豆のネブタ</span><span class="price">580円</span></li>
 			  </ul>
 
 			  <!-- 洋食系 -->
@@ -353,10 +373,7 @@
 			  <!-- その他 -->
 			  <div class="menu-category">その他</div>
 			  <ul class="menu-list">
-			    <li><span>三段シュウマイ</span><span class="price">580円</span></li>
-			    <li><span>ポークジンジャー</span><span class="price">580円</span></li>
 			    <li><span>忍ソウメン</span><span class="price">780円</span></li>
-			    <li><span>六宝豆のネブタ</span><span class="price">580円</span></li>
 			    <li><span>珍々昔（珍味）</span><span class="price">580円</span></li>
 			  </ul>
 
@@ -365,21 +382,28 @@
 		  <!-- ▼ 土日 -->
 			<div class="menu-content" id="weekend" style="display:none;">
 			  <strong style="font-size:0.9rem;">【土日ランチメニュー】</strong>
+        ※記載は2026/3/14,15のメニューになります。
+        　週替わりでメニューは変わります。<br>
+        <br>
+			  <div class="menu-category">固定おつまみ※品切れの場合はご了承下さい</div>
 			  <ul class="menu-list">
-			    <li><span>馬チャーシュー</span><span class="price">680円</span></li>
-			    <li><span>茎のせ</span><span class="price">480円</span></li>
+			    <li><span>ねぎのせ</span><span class="price">480円</span></li>
 			    <li><span>玉こんにゃく</span><span class="price">480円</span></li>
 			    <li><span>野沢菜漬け</span><span class="price">480円</span></li>
 			    <li><span>山形芋煮</span><span class="price">1380円</span></li>
 			    <li><span>山形芋煮（ハーフ）</span><span class="price">700円</span></li>
 			    <li><span>マカロニサラダ</span><span class="price">480円</span></li>
+			  </ul>
+			  <div class="menu-category">変動メニュー</div>
+			  <ul class="menu-list">
+			    <li><span>馬チャーシュー</span><span class="price">680円</span></li>
 			    <li><span>セリおひたし</span><span class="price">580円</span></li>
 			    <li><span>雑草（山形のヒョウ）</span><span class="price">580円</span></li>
 			    <li><span>わかめの刺身</span><span class="price">580円</span></li>
 			    <li><span>チーズフライ（既製品）</span><span class="price">480円</span></li>
 			    <li><span>ポテトフライ</span><span class="price">480円</span></li>
 			  </ul>
-			</div>
+      </div>
 
 		</div>
 
