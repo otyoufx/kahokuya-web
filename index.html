@@ -98,6 +98,38 @@
       color: #666;
       margin-top: 20px;
     }
+
+		.menu-list {
+		  list-style: none;
+		  padding: 0;
+		  margin: 6px 0 12px 0;
+		}
+
+		.menu-list li {
+		  display: flex;
+		  justify-content: space-between;
+		  padding: 4px 0;
+		  border-bottom: 1px dotted #ddd; /* 線なしにしたいなら削除OK */
+		}
+
+		.menu-list .price {
+		  text-align: right;
+		  min-width: 60px;
+		}
+
+		.menu-category {
+		  font-weight: 600;
+		  margin-top: 12px;
+		  margin-bottom: 4px;
+		  font-size: 0.85rem;
+		}
+
+		/* タブの見た目（必要なら調整） */
+		.menu-tab.active {
+		  background: #ddd !important;
+		  font-weight: 600;
+		}
+    
   </style>
 </head>
 
@@ -224,38 +256,87 @@
 		  </iframe>
 		</div>
 
-    <!-- お品書き -->
 		<div class="card small-card">
 		  <div class="section-title">お品書き</div>
 
-		  <!-- ランチメニュー -->
-		  <div style="margin-bottom:16px;">
+		  <!-- タブ -->
+		  <div class="menu-tabs" style="display:flex; gap:8px; margin-bottom:12px;">
+		    <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ</div>
+		    <div class="menu-tab" data-target="dinner" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ディナー</div>
+		    <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">土日</div>
+		  </div>
+
+		  <!-- ▼ ランチ -->
+		  <div class="menu-content" id="lunch" style="display:block;">
 		    <strong style="font-size:0.9rem;">【ランチ（平日）】</strong>
-		    <ul style="margin-top:6px;">
-		      <!-- ここにランチメニューを追記 -->
-		      <li>肉そば（冷・温） ¥780</li>
+		    <ul class="menu-list">
+		      <!-- 例：
+		      <li><span>肉そば（冷・温）</span><span class="price">750円</span></li>
+		      <li><span>肉そば 肉ダブル（冷・温）</span><span class="price">950円</span></li>
+		      -->
 		    </ul>
 		  </div>
 
-		  <!-- ディナーメニュー -->
-		  <div style="margin-bottom:16px;">
-		    <strong style="font-size:0.9rem;">【ディナー】</strong>
-		    <ul style="margin-top:6px;">
-		      <li>肉そば（冷・温） ¥780</li>
+		  <!-- ▼ ディナー -->
+		  <div class="menu-content" id="dinner" style="display:none;">
+
+		    <!-- 名物・山形料理 -->
+		    <div class="menu-category">名物・山形料理</div>
+		    <ul class="menu-list">
+		      <!-- 例：
+		      <li><span>山形芋煮</span><span class="price">1380円</span></li>
+		      -->
 		    </ul>
+
+		    <!-- 刺身・冷菜 -->
+		    <div class="menu-category">刺身・冷菜</div>
+		    <ul class="menu-list"></ul>
+
+		    <!-- 揚げ物・焼き物 -->
+		    <div class="menu-category">揚げ物・焼き物</div>
+		    <ul class="menu-list"></ul>
+
+		    <!-- 洋食系 -->
+		    <div class="menu-category">洋食系</div>
+		    <ul class="menu-list"></ul>
+
+		    <!-- その他 -->
+		    <div class="menu-category">その他</div>
+		    <ul class="menu-list"></ul>
+
 		  </div>
 
-		  <!-- 土日メニュー -->
-		  <div>
+		  <!-- ▼ 土日 -->
+		  <div class="menu-content" id="weekend" style="display:none;">
 		    <strong style="font-size:0.9rem;">【土日メニュー】</strong>
-		    <ul style="margin-top:6px;">
-		      <li>肉そば（冷・温） ¥780</li>
+		    <ul class="menu-list">
+		      <!-- 例：
+		      <li><span>馬チャーシュー</span><span class="price">680円</span></li>
+		      -->
 		    </ul>
 		  </div>
 
 		</div>
+
+
+  </div>
     <footer>© 2007-2026 山形肉そば 河北や</footer>
 
   </div>
+
+	<script>
+	document.querySelectorAll('.menu-tab').forEach(tab => {
+	  tab.addEventListener('click', () => {
+	    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+	    tab.classList.add('active');
+
+	    const target = tab.dataset.target;
+	    document.querySelectorAll('.menu-content').forEach(c => {
+	      c.style.display = (c.id === target) ? 'block' : 'none';
+	    });
+	  });
+	});
+	</script>
+  
 </body>
 </html>
