@@ -123,8 +123,19 @@
 		  font-weight: 600;
 		  margin-top: 16px;
 		  margin-bottom: 6px;
-		  font-size: 0.85rem;
+		  font-size: 0.6rem;
 		}
+
+		.menu-tabs {
+		  display: flex;
+		  flex-wrap: nowrap;
+		}
+
+    .menu-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
 		/* タブの見た目（必要なら調整） */
 		.menu-tab.active {
@@ -189,7 +200,7 @@
 
 			<table class="schedule-table">
 			  <tr>
-			    <th>時間帯＼曜日</th>
+			    <th>＼</th>
 			    <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th>
 			  </tr>
 			  <tr>
@@ -280,14 +291,14 @@
 
 		  <!-- タブ -->
 		  <div class="menu-tabs" style="display:flex; gap:8px; margin-bottom:12px;">
-		    <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（平日）</div>
+		    <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（平日・土曜・日曜）</div>
 		    <div class="menu-tab" data-target="dinner" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ディナー（平日・土曜）</div>
-		    <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（土曜・日曜）</div>
+		    <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチおつまみ（土曜・日曜）</div>
 		  </div>
 
-		  <!-- ▼ ランチ -->
+		  <!-- ▼ ランチ（平日・土曜・日曜） -->
 			<div class="menu-content" id="lunch" style="display:block;">
-			  <strong style="font-size:0.9rem;">【ランチ（平日）】</strong>
+			  <strong style="font-size:0.9rem;">【ランチ（平日・土曜・日曜）】</strong>
 			  <div class="menu-category">単品メニュー</div>
 			  <ul class="menu-list">
 			    <li><span>肉そば（冷・温）</span><span class="price">750円</span></li>
@@ -330,9 +341,9 @@
 			  </ul>
 			</div>
 
-		  <!-- ▼ ディナー -->
+		  <!-- ▼ ディナー（平日・土曜） -->
 			<div class="menu-content" id="dinner" style="display:none;">
-			  <strong style="font-size:0.9rem;">【ディナー（平日・土曜）】</strong>
+			  <strong style="font-size:0.9rem;">【ディナー（平日・土曜）】</strong><br>
         ※日によって欠品しているメニューもあります。<br>
         　当日あるかは店主にご確認ください。<br>
         <br>
@@ -398,11 +409,12 @@
 
 			</div>
 
-		  <!-- ▼ 土日 -->
+		  <!-- ▼ ランチおつまみ（土曜・日曜） -->
 			<div class="menu-content" id="weekend" style="display:none;">
-			  <strong style="font-size:0.9rem;">【土日ランチメニュー】</strong>
-        ※記載は2026/3/14,15のメニューになります。
-        　週替わりでメニューは変わります。<br>
+			  <strong style="font-size:0.9rem;">【ランチ（平日・土曜・日曜）】</strong><br>
+        　通常ランチの時間帯にお酒を飲まれる方用のメニューとなります。<br>
+        　※記載は2026/3/16時点でのメニューになります。<br>
+        　　週によりメニューは変わります。<br>
         <br>
 			  <div class="menu-category">固定おつまみ※品切れの場合はご了承下さい</div>
 			  <ul class="menu-list">
