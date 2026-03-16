@@ -168,10 +168,6 @@
 		        }
 		      }, 5000);
 
-		      // Xの枠部分だけ再読み込み
-		      document.getElementById("tweet-reload").addEventListener("click", () => {
-		        frame.src = twitframeUrl;
-		      });
 		    })
 		    .catch(err => {
 		      document.getElementById("tweet-fallback").style.display = "block";
@@ -275,13 +271,9 @@
 		  <!-- X読み込み失敗時に表示される場合の対処 -->
 		  <div id="tweet-fallback" style="display:none; margin-top:10px; font-size:0.85rem; text-align:center;">
 		    表示されない場合は
-		    <a id="tweet-link" href="#" target="_blank">こちらをクリック</a> ※Xを開きます<br>
-		    <button id="tweet-reload" style="margin-top:6px; padding:4px 10px; border-radius:6px; border:1px solid #ccc;">
-		      再読み込み
-		    </button>
+		    <a id="tweet-link" href="https://x.com/kahokuya_riki" target="_blank">こちらをクリック</a> ※Xを開きます<br>
 		  </div>
 		</div>
-
 
 		<div class="card small-card">
 		  <div class="section-title">お品書き</div>
