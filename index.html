@@ -62,12 +62,14 @@
       border-collapse: collapse;
       font-size: 0.8rem;
       text-align: center;
+      table-layout: fixed;
     }
 
     .schedule-table th,
     .schedule-table td {
       border: 1px solid #ddd;
       padding: 6px 4px;
+      width: 12.5%; /* 8列なので100% ÷ 8 */
     }
 
     .schedule-table th {
@@ -134,59 +136,50 @@
     </div>
 
     <!-- 営業時間 -->
-    <div class="card small-card">
-      <div class="section-title">営業日・営業時間</div>
+		<div class="card small-card">
+		  <div class="section-title">営業日・営業時間</div>
 
-      <p>
-        月曜：11:00〜14:00／17:00〜21:30<br>
-        火曜：定休日<br>
-        水曜：11:00〜14:00／17:00〜21:30<br>
-        木曜：11:00〜14:00／17:00〜21:30<br>
-        金曜：11:00〜14:00／17:00〜21:30<br>
-        土曜：11:00〜15:00／17:00〜21:30<br>
-        日曜：11:00〜15:00
-      </p>
+		  <table class="schedule-table">
+		    <tr>
+		      <th>時間帯＼曜日</th>
+		      <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th>
+		    </tr>
+		    <tr>
+		      <th>昼</th>
+		      <td>◯<br>11–14</td>
+		      <td>✕</td>
+		      <td>◯<br>11–14</td>
+		      <td>◯<br>11–14</td>
+		      <td>◯<br>11–14</td>
+		      <td>◯<br>11–15</td>
+		      <td>◯<br>11–15</td>
+		    </tr>
+		    <tr>
+		      <th>夜</th>
+		      <td>◯<br>17–21:30</td>
+		      <td>✕</td>
+		      <td>◯<br>17–21:30</td>
+		      <td>◯<br>17–21:30</td>
+		      <td>◯<br>17–21:30</td>
+		      <td>◯<br>17–21:30</td>
+		      <td>✕</td>
+		    </tr>
+		  </table>
 
-      <p style="font-size:0.7rem; color:#666;">
-        ※ 営業時間は変更される可能性があります
-      </p>
+		  <div style="margin-top:12px; font-size:0.8rem;">
+		    <strong>【平日】</strong><br>
+		    11:00〜14:00／17:00〜21:30<br><br>
 
-      <p><strong>住所：</strong><br>
-      〒335-0013<br>
-      埼玉県戸田市喜沢1丁目48−24</p>
-    </div>
+		    <strong>【土曜】</strong><br>
+		    11:00〜15:00／17:00〜21:30<br><br>
 
-    <!-- ◯✕表 -->
-    <div class="card small-card">
-      <div class="section-title">週間営業スケジュール</div>
+		    <strong>【日曜】</strong><br>
+		    11:00〜15:00<br><br>
 
-      <table class="schedule-table">
-        <tr>
-          <th>時間帯＼曜日</th>
-          <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th>
-        </tr>
-        <tr>
-          <th>昼</th>
-          <td>◯<br>11–14</td>
-          <td>✕</td>
-          <td>◯<br>11–14</td>
-          <td>◯<br>11–14</td>
-          <td>◯<br>11–14</td>
-          <td>◯<br>11–15</td>
-          <td>◯<br>11–15</td>
-        </tr>
-        <tr>
-          <th>夜</th>
-          <td>◯<br>17–21:30</td>
-          <td>✕</td>
-          <td>◯<br>17–21:30</td>
-          <td>◯<br>17–21:30</td>
-          <td>◯<br>17–21:30</td>
-          <td>◯<br>17–21:30</td>
-          <td>✕</td>
-        </tr>
-      </table>
-    </div>
+		    <strong>【定休日】</strong><br>
+		    火曜（祝日の場合もお休み）
+		  </div>
+		</div>
 
     <!-- アクセス地図 -->
     <div class="card small-card">
@@ -227,13 +220,35 @@
 		</div>
 
     <!-- お品書き -->
-    <div class="card small-card">
-      <div class="section-title">お品書き</div>
-      <ul>
-        <li>準備中</li>
-      </ul>
-    </div>
+		<div class="card small-card">
+		  <div class="section-title">お品書き</div>
 
+		  <!-- ランチメニュー -->
+		  <div style="margin-bottom:16px;">
+		    <strong style="font-size:0.9rem;">【ランチ（平日）】</strong>
+		    <ul style="margin-top:6px;">
+		      <!-- ここにランチメニューを追記 -->
+		      <li>肉そば（冷・温） ¥780</li>
+		    </ul>
+		  </div>
+
+		  <!-- ディナーメニュー -->
+		  <div style="margin-bottom:16px;">
+		    <strong style="font-size:0.9rem;">【ディナー】</strong>
+		    <ul style="margin-top:6px;">
+		      <li>肉そば（冷・温） ¥780</li>
+		    </ul>
+		  </div>
+
+		  <!-- 土日メニュー -->
+		  <div>
+		    <strong style="font-size:0.9rem;">【土日メニュー】</strong>
+		    <ul style="margin-top:6px;">
+		      <li>肉そば（冷・温） ¥780</li>
+		    </ul>
+		  </div>
+
+		</div>
     <footer>© 2007-2026 山形肉そば 河北や</footer>
 
   </div>
