@@ -149,13 +149,12 @@
 		      const item = data.querySelector("item");
 		      if (!item) throw new Error("No tweet found");
 
-		      // 最新ツイートのURLを取得
+		      // 最新ツイートのURL
 		      const tweetUrl = item.querySelector("link").textContent;
 
 		      // Twitframe に渡す
 		      const twitframeUrl = "https://twitframe.com/show?url=" + encodeURIComponent(tweetUrl);
 
-		      // iframe にセット
 		      const frame = document.getElementById("tweet-frame");
 		      frame.src = twitframeUrl;
 
@@ -168,16 +167,15 @@
 		          document.getElementById("tweet-fallback").style.display = "block";
 		        }
 		      }, 5000);
+
+		      // Xの枠部分だけ再読み込み
+		      document.getElementById("tweet-reload").addEventListener("click", () => {
+		        frame.src = twitframeUrl;
+		      });
 		    })
 		    .catch(err => {
-		      // RSS取得失敗時
 		      document.getElementById("tweet-fallback").style.display = "block";
 		    });
-
-		  // 再読み込みボタン
-		  document.getElementById("tweet-reload").addEventListener("click", () => {
-		    location.reload();
-		  });
 		</script>
 
     <h1>山形肉そば 河北や</h1>
@@ -268,16 +266,16 @@
 
 		  <iframe id="tweet-frame"
 		    width="100%"
-		    height="600"
+		    height="350"
 		    frameborder="0"
 		    scrolling="no"
 		    style="border-radius: 12px; background:#f9f9f9;">
 		  </iframe>
 
-		  <!-- 読み込み失敗時に表示される部分（最初は非表示） -->
+		  <!-- X読み込み失敗時に表示される場合の対処 -->
 		  <div id="tweet-fallback" style="display:none; margin-top:10px; font-size:0.85rem; text-align:center;">
 		    表示されない場合は
-		    <a id="tweet-link" href="#" target="_blank">こちらをクリック</a><br>
+		    <a id="tweet-link" href="#" target="_blank">こちらをクリック</a> ※Xを開きます<br>
 		    <button id="tweet-reload" style="margin-top:6px; padding:4px 10px; border-radius:6px; border:1px solid #ccc;">
 		      再読み込み
 		    </button>
