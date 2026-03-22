@@ -119,6 +119,7 @@
 	  list-style: none;
 	  padding: 0;
 	  margin: 6px 0 12px 0;
+	  padding-left: 1em;
 	}
 
 	.menu-list li {
@@ -141,11 +142,6 @@
 	  font-size: 0.8rem;
 	}
 
-	.menu-tabs {
-	  display: flex;
-	  flex-wrap: nowrap;
-	}
-
     .menu-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -158,8 +154,6 @@
 	  font-weight: 600;
 	}
     
-	ul { margin: 0; padding-left: 1em; }
-
   </style>
 </head>
 
@@ -263,7 +257,7 @@
 		    11:00〜15:00<br><br>
 
 		    <strong>【定休日】</strong><br>
-		    火曜（祝日の場合もお休み）
+		    火曜、祝日
 		  </div>
 		</div>
 
@@ -284,7 +278,35 @@
       </iframe>
     </div>
 
-    <!-- お知らせ(X) -->
+<!--テストここから-->
+
+<!-- お知らせ・最新情報 -->
+<div class="card small-card">
+  <div class="section-title">お知らせ・最新情報</div>
+	<p style="font-size:0.85rem; line-height:1.5; margin-bottom:12px;">
+	  お店からのお知らせ、最新情報は店主のXをご確認ください。<br>
+	  ※Xの埋め込みが取得できないため、現在Nitter経由で<br>
+	  　Xのポスト取得表示しております。<br>
+	  直接店主のXを確認する場合は
+	  <a id="tweet-link" href="https://x.com/kahokuya_riki" target="_blank">こちらをクリック</a>（Xを開きます）
+	</p>
+	
+  <iframe
+    src="https://nitter.net/kahokuya_riki"
+    width="100%"
+    height="600"
+    style="border:0; border-radius:12px; background:#fff;"
+    loading="lazy">
+  </iframe>
+
+  <div style="margin-top:8px; font-size:0.8rem; text-align:center;">
+    ※表示が重い場合は
+    <a href="https://x.com/kahokuya_riki" target="_blank">公式X</a> をご確認ください。
+  </div>
+</div>
+
+
+<!--
     <div class="card small-card">
       <div class="section-title">お知らせ・最新情報</div>
       <ul>
@@ -298,12 +320,12 @@
 	    style="border-radius: 12px; background:#f9f9f9;">
 	  </iframe>
 
-	  <!-- X読み込み失敗時に表示される場合の対処 -->
 	  <div id="tweet-fallback" style="display:none; margin-top:10px; font-size:0.85rem; text-align:center;">
 	    表示されない場合は
 	    <a id="tweet-link" href="https://x.com/kahokuya_riki" target="_blank">こちらをクリック</a> ※Xを開きます<br>
 	  </div>
 	</div>
+-->
 
 		<div class="card small-card">
 		  <div class="section-title">お品書き</div>
@@ -313,6 +335,7 @@
 		    <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（平日・土曜・日曜）</div>
 		    <div class="menu-tab" data-target="dinner" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ディナー（平日・土曜）</div>
 		    <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチおつまみ（土曜・日曜）</div>
+		    <div class="menu-tab" data-target="drink" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ドリンク（ディナー(平日・土曜)、日曜）</div>
 		  </div>
 
 		  <!-- ▼ ランチ（平日・土曜・日曜） -->
@@ -413,9 +436,9 @@
 			  </ul>
 			</div>
 
-		  <!-- ▼ ランチおつまみ（土曜・日曜） -->
+			  <!-- ▼ ランチおつまみ（土曜・日曜） -->
 			<div class="menu-content" id="weekend" style="display:none;">
-			  <strong style="font-size:0.9rem;">【ランチ（土曜・日曜）】</strong><br>
+			<strong style="font-size:0.9rem;">【ランチ（土曜・日曜）】</strong><br>
           土日ランチの時間帯にお酒を飲まれる方用のメニューとなります。<br>
           ※記載は2026/3/16時点でのメニューになります。<br>
             週によりメニューは変わります。<br>
@@ -440,7 +463,60 @@
 			  </ul>
       </div>
 
-		</div>
+	  		  <!-- ▼ ドリンク（ディナー(平日・土曜)、日曜） -->
+			<div class="menu-content" id="drink" style="display:none;">
+			  <strong style="font-size:0.9rem;">【ドリンク（ディナー(平日・土曜)、日曜）】</strong><br>
+          お酒の席として入られた方を対象としております。<br>
+          ※仕入れ状況により品切れの場合がございます。ご了承ください<br>
+        <br>
+			  <div class="menu-category">ビール・ハイボール・酎ハイ</div>
+			  <ul class="menu-list">
+			    <li><span>生ビール</span><span class="price">580円</span></li>
+			    <li><span>ハイボール</span><span class="price">480円</span></li>
+			    <li><span>レモン酎ハイ</span><span class="price">480円</span></li>
+			    <li><span>烏龍ハイ</span><span class="price">480円</span></li>
+			    <li><span>緑茶ハイ</span><span class="price">480円</span></li>
+			    <li><span>梅干酎ハイ</span><span class="price">480円</span></li>
+			    <li><span>そば焼酎蕎麦湯割り</span><span class="price">580円</span></li>
+			    <li><span>芋焼酎蕎麦湯割り</span><span class="price">580円</span></li>
+			  </ul>
+			  <div class="menu-category">日本酒</div>
+			  <ul class="menu-list">
+			    <li><span>山形正宗 辛口純米</span><span class="price">980円</span></li>
+			    <li><span>山法師 純米爆雷辛口原酒生酒</span><span class="price">980円</span></li>
+			    <li><span>天弓 純米</span><span class="price">880円</span></li>
+			    <li><span>秀鳳 特別純米 超辛口</span><span class="price">880円</span></li>
+			    <li><span>上喜元 純米</span><span class="price">880円</span></li>
+			    <li><span>出羽桜</span><span class="price">880円</span></li>
+			    <li><span>ばくれん 超辛口吟醸</span><span class="price">880円</span></li>
+			    <li><span>雅山流 生 本醸造 無濾過</span><span class="price">880円</span></li>
+			    <li><span>鬼王丸(原酒) 純米 激辛 あら玉 </span><span class="price">880円</span></li>
+			    <li><span>栄光富士 本醸造 辛口</span><span class="price">780円</span></li>
+			    <li><span>万流 栄光富士</span><span class="price">780円</span></li>
+			  </ul>
+			  <div class="menu-category">ワイン</div>
+			  <ul class="menu-list">
+			    <li><span>山形赤ワイン</span><span class="price">600円</span></li>
+			    <li><span>山形白ワイン</span><span class="price">600円</span></li>
+			  </ul>
+			  <div class="menu-category">ボトル・割り物</div>
+			  <ul class="menu-list">
+			    <li><span>金宮ボトル(保持期限２ヶ月)</span><span class="price">2,400円</span></li>
+			    <li><span>炭酸デカンタ</span><span class="price">450円</span></li>
+			    <li><span>烏龍茶デカンタ</span><span class="price">450円</span></li>
+			    <li><span>緑茶デカンタ</span><span class="price">450円</span></li>
+			    <li><span>常陸の秋蕎麦 蕎麦湯デカンタ</span><span class="price">450円</span></li>
+			    <li><span>カットレモン</span><span class="price">250円</span></li>
+			    <li><span>梅干し(3粒)</span><span class="price">250円</span></li>
+			  </ul>
+			  <div class="menu-category">ソフトドリンク</div>
+			  <ul class="menu-list">
+			    <li><span>山形のりんごジュース(100%果汁)</span><span class="price">450円</span></li>
+			    <li><span>山形のももジュース(100%果汁)</span><span class="price">450円</span></li>
+			  </ul>
+      </div>
+
+	</div>
 
 
   <div>
