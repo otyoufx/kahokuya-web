@@ -13,7 +13,7 @@ export const handler = async (event) => {
     const data = JSON.parse(event.body);
 
     // ★ data.json の正しい場所（/netlify/data.json）
-    const filePath = path.join(process.cwd(), "netlify", "data.json");
+    const filePath = path.join(process.cwd(), "json", "data.json");
 
     // JSON を書き込み
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");

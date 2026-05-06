@@ -1,7 +1,7 @@
 async function loadSettings() {
   try {
     // ★ data.json の正しい場所
-    const res = await fetch("/netlify/data.json", { cache: "no-store" });
+    const res = await fetch("/json/data.json", { cache: "no-store" });
     const data = await res.json();
 
     // ▼ 営業モードの反映
