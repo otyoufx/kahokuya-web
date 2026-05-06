@@ -6,8 +6,14 @@ exports.handler = async () => {
   try {
     const store = blobs().store("settings");
 
-    // Blobs の data.json を読み込み（存在しない場合は null）
-    let data = await store.get("data.json", { type: "json", fallback: null });
+    // まず store.get() を試す（store が無いと例外）
+    let data = null;
+    try {
+      data = await store.get("data.json", { type: "json" });
+    } catch (e) {
+      // store が存在しない or data.json が無い
+      data = null;
+    }
 
     // 初回：Blobs に data.json が無い → Git の data.json を使う
     if (!data) {
@@ -15,7 +21,7 @@ exports.handler = async () => {
       const fileContent = fs.readFileSync(filePath, "utf-8");
       data = JSON.parse(fileContent);
 
-      // 初回だけ Blobs に保存しておく
+      // 初回だけ Blobs に保存（ここで store が作られる）
       await store.set("data.json", data, { type: "json" });
     }
 
