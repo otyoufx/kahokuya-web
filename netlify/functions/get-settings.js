@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 exports.handler = async () => {
+console.log("DEBUG: get-settings START");
   try {
     const store = blobs().store("settings");
 
