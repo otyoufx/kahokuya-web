@@ -1,10 +1,9 @@
-import { getStore } from "@netlify/blobs";
+const { getStore } = require("@netlify/blobs");
 
-export const handler = async () => {
-  const store = getStore("settings"); // ストア名は自由
+exports.handler = async () => {
+  const store = getStore("settings");
   const json = await store.get("data.json", { type: "json" });
 
-  // まだ保存されていない場合は初期値を返す
   const defaultData = {
     forceClosed: false,
     schedule: {
