@@ -1,5 +1,5 @@
-const fs = require("fs");
 const path = require("path");
+const fs = require("fs");
 
 exports.handler = async () => {
   const filePath = path.join(__dirname, "data.json");
