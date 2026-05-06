@@ -1,24 +1,22 @@
-const { getStore } = require("@netlify/blobs");
+const { blobs } = require("@netlify/blobs");
 
 exports.handler = async () => {
-  const store = getStore("settings");
-  const json = await store.get("data.json", { type: "json" });
+  try {
+    const store = blobs().store("settings");
 
-  const defaultData = {
-    forceClosed: false,
-    schedule: {
-      "昼": ["◯","✕","◯","◯","◯","◯","◯"],
-      "夜": ["◯","✕","◯","◯","◯","◯","✕"]
-    },
-    notice: {
-      enabled: false,
-      title: "",
-      body: ""
-    }
-  };
+    // data.json を JSON として取得（存在しない場合は null）
+    const data = await store.get("data.json", { type: "json" });
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(json || defaultData)
-  };
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data || {}),
+      headers: { "Content-Type": "application/json" }
+    };
+  } catch (err) {
+    console.error("get-settings error:", err);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Failed to load settings" })
+    };
+  }
 };

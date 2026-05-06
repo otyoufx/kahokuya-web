@@ -1,20 +1,24 @@
-const { getStore } = require("@netlify/blobs");
+const { blobs } = require("@netlify/blobs");
 
 exports.handler = async (event) => {
   try {
+    const store = blobs().store("settings");
+
     const body = JSON.parse(event.body);
 
-    const store = getStore("settings");
-    await store.set("data.json", JSON.stringify(body, null, 2));
+    // data.json に JSON として保存
+    await store.set("data.json", body, { type: "json" });
 
     return {
       statusCode: 200,
-      body: "OK"
+      body: JSON.stringify({ ok: true }),
+      headers: { "Content-Type": "application/json" }
     };
-  } catch (e) {
+  } catch (err) {
+    console.error("save-settings error:", err);
     return {
       statusCode: 500,
-      body: "Error saving settings"
+      body: JSON.stringify({ error: "Failed to save settings" })
     };
   }
 };
