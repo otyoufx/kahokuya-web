@@ -12,8 +12,10 @@ export const handler = async (event) => {
   try {
     const data = JSON.parse(event.body);
 
-    const filePath = path.join(process.cwd(), "data.json");
+    // ★ data.json の正しい場所（/netlify/data.json）
+    const filePath = path.join(process.cwd(), "netlify", "data.json");
 
+    // JSON を書き込み
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
 
     return {
@@ -24,7 +26,10 @@ export const handler = async (event) => {
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: "保存に失敗しました", error: err.message })
+      body: JSON.stringify({
+        message: "保存に失敗しました",
+        error: err.message
+      })
     };
   }
 };
