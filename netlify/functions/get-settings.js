@@ -3,8 +3,7 @@ const path = require("path");
 
 exports.handler = async () => {
   try {
-    // ★ data.json は get-settings.js と同じフォルダに置く
-    const filePath = path.join(process.cwd(), "netlify", "data.json");
+    const filePath = path.join(__dirname, "data.json");
     const json = fs.readFileSync(filePath, "utf8");
 
     return {
