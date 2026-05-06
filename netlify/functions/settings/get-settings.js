@@ -2,8 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 exports.handler = async () => {
-// data.json の場所指定
-  const filePath = path.join(process.cwd(), "data.json");
+  const filePath = path.join(__dirname, "data.json");
   const json = fs.readFileSync(filePath, "utf8");
 
   return {
