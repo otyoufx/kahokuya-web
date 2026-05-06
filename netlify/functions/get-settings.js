@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
+const fs = require("fs");
+const path = require("path");
 
-export const handler = async () => {
+exports.handler = async () => {
   const filePath = path.join(process.cwd(), "netlify", "data.json");
   const json = fs.readFileSync(filePath, "utf8");
 
