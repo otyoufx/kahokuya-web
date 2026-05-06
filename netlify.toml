@@ -2,4 +2,6 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
   external_node_modules = ["@netlify/blobs"]
-  node_version = "18"
+
+[functions.node_version]
+  value = "18"
