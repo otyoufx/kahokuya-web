@@ -63,6 +63,6 @@ document.querySelector(".settings-save-btn").addEventListener("click", async () 
     body: JSON.stringify(payload)
   });
 
-  const result = await res.json();
-  alert(result.message || "保存しました！");
+  const text = await res.text();
+  alert(text || "保存しました！");
 });
