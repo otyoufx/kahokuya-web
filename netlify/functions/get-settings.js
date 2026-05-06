@@ -1,14 +1,25 @@
-const fs = require("fs");
-const path = require("path");
+import { getStore } from "@netlify/blobs";
 
-require("./data.json");
+export const handler = async () => {
+  const store = getStore("settings"); // ストア名は自由
+  const json = await store.get("data.json", { type: "json" });
 
-exports.handler = async () => {
-  try {
-    const filePath = path.join(__dirname, "data.json");
-    const json = fs.readFileSync(filePath, "utf8");
-    return { statusCode: 200, headers: { "Content-Type": "application/json" }, body: json };
-  } catch {
-    return { statusCode: 500, body: "Error loading settings" };
-  }
+  // まだ保存されていない場合は初期値を返す
+  const defaultData = {
+    forceClosed: false,
+    schedule: {
+      "昼": ["◯","✕","◯","◯","◯","◯","◯"],
+      "夜": ["◯","✕","◯","◯","◯","◯","✕"]
+    },
+    notice: {
+      enabled: false,
+      title: "",
+      body: ""
+    }
+  };
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify(json || defaultData)
+  };
 };
