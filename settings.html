@@ -1,4 +1,50 @@
-<!-- ▼▼▼ 設定ページ UI ▼▼▼ -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サイト設定</title>
+
+  <style>
+    .notice-card {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+    .notice-toggle {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .notice-toggle input {
+      margin-right: 8px;
+    }
+    .notice-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .notice-label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: -4px;
+    }
+    .notice-title,
+    .notice-body {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
 <div class="settings-container">
 
   <h2>🔧 サイト設定（管理用）</h2>
@@ -70,59 +116,18 @@
 
       <div class="notice-fields">
         <label class="notice-label">タイトル</label>
-        <input type="text" class="notice-title" placeholder="例：GW期間の営業について">
+        <input type="text" class="notice-title">
 
         <label class="notice-label">本文</label>
-        <textarea class="notice-body" rows="4" placeholder="例：GW期間中は営業時間が変更になります。"></textarea>
+        <textarea class="notice-body" rows="4"></textarea>
       </div>
     </div>
   </div>
 
-  <!-- 保存ボタン -->
   <button class="settings-save-btn">保存</button>
 
-  <script src="js/settings.js"></script>
 </div>
 
-<!-- ▼▼▼ CSS ▼▼▼ -->
-<style>
-.notice-card {
-  background: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-}
-
-.notice-toggle {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-.notice-toggle input {
-  margin-right: 8px;
-}
-
-.notice-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.notice-label {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: -4px;
-}
-
-.notice-title,
-.notice-body {
-  width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
-}
-</style>
+<script src="js/settings.js"></script>
+</body>
+</html>
