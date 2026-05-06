@@ -1,4 +1,4 @@
-<!-- ▼▼▼ 設定ページ UI（保存処理なし） ▼▼▼ -->
+<!-- ▼▼▼ 設定ページ UI ▼▼▼ -->
 <div class="settings-container">
 
   <h2>🔧 サイト設定（管理用）</h2>
@@ -6,17 +6,19 @@
   <!-- 営業モード -->
   <div class="settings-block">
     <h3>営業モード</h3>
+
     <label>
-      <input type="radio" name="forceClosed" value="normal" checked>
+      <input type="radio" name="forceClosed" value="open" checked>
       通常判定（曜日と時間で自動判定）
     </label><br>
+
     <label>
       <input type="radio" name="forceClosed" value="closed">
       強制的に「休み」にする
     </label>
   </div>
 
-  <!-- 営業日・営業時間（縦横逆バージョン） -->
+  <!-- 営業日・営業時間 -->
   <div class="settings-block">
     <h3>営業日・営業時間（◯✕編集）</h3>
 
@@ -56,34 +58,33 @@
     </table>
   </div>
 
-<!-- お知らせ自由書き込み（レイアウト改善版） -->
-<div class="settings-block">
-  <h3>お知らせ（自由書き込み）</h3>
+  <!-- お知らせ -->
+  <div class="settings-block">
+    <h3>お知らせ（自由書き込み）</h3>
 
-  <div class="notice-card">
-    <label class="notice-toggle">
-      <input type="checkbox" id="noticeEnabled">
-      お知らせを表示する
-    </label>
+    <div class="notice-card">
+      <label class="notice-toggle">
+        <input type="checkbox" id="noticeEnabled">
+        お知らせを表示する
+      </label>
 
-    <div class="notice-fields">
-      <label class="notice-label">タイトル</label>
-      <input type="text" placeholder="例：GW期間の営業について" class="notice-title">
+      <div class="notice-fields">
+        <label class="notice-label">タイトル</label>
+        <input type="text" class="notice-title" placeholder="例：GW期間の営業について">
 
-      <label class="notice-label">本文</label>
-      <textarea placeholder="例：GW期間中は営業時間が変更になります。" rows="4" class="notice-body"></textarea>
+        <label class="notice-label">本文</label>
+        <textarea class="notice-body" rows="4" placeholder="例：GW期間中は営業時間が変更になります。"></textarea>
+      </div>
     </div>
   </div>
-</div>
 
+  <!-- 保存ボタン -->
+  <button class="settings-save-btn">保存</button>
 
-  <!-- 保存ボタン（まだ動かない） -->
-  <button class="settings-save-btn">保存（※まだ動作しません）</button>
   <script src="js/settings.js"></script>
-
 </div>
 
-<!-- ▼▼▼ 設定ページ用の簡易CSS ▼▼▼ -->
+<!-- ▼▼▼ CSS ▼▼▼ -->
 <style>
 .notice-card {
   background: #f8f9fa;
