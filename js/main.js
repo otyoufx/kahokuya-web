@@ -1,6 +1,6 @@
 async function loadSettings() {
   try {
-    // ★ data.json の正しい場所
+    // data.json の場所
     const res = await fetch("/json/data.json", { cache: "no-store" });
     const data = await res.json();
 
