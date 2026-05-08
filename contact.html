@@ -32,21 +32,25 @@
 <h1>お問い合わせ</h1>
 
 <p>
-当店へのお問い合わせは、以下のメールアドレスよりお願いいたします。<br>
-クリックするとメールアプリが開きます。
+当店へのお問い合わせは、
+<span id="mail"></span>
+よりメールでお願いいたします。<br>
+「こちら」クリックするとメールアプリが開きます。
 </p>
-
-<p id="mail"></p>
 
 <script>
   // メールアドレスをJSで生成（スパム対策）
-  const user = "bootgm";          // ← ここを好きなユーザー名に
-  const domain = "gmail.com"; // ← ここをあなたのドメインに
+  const user = "bootgm";          // ← メールアドレスの前半
+  const domain = "gmail.com";     // ← メールアドレスの後半
   const address = `${user}@${domain}`;
 
+  // 表示は「こちら」だけ
   document.getElementById("mail").innerHTML =
     `<a href="mailto:${address}">こちら</a>`;
 </script>
+
+
+
 
 <p style="margin-top:20px;">
 <a href="/privacy.html">プライバシーポリシーはこちら</a>
