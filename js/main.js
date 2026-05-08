@@ -1,7 +1,12 @@
 async function loadSettings() {
   try {
-    // data.json の場所
     const res = await fetch("/.netlify/functions/get-settings", { cache: "no-store" });
+
+    if (!res.ok) {
+      console.error("get-settings HTTP error:", res.status, res.statusText);
+      throw new Error("get-settings failed");
+    }
+
     const data = await res.json();
 
     // ▼ 営業モードの反映
@@ -17,19 +22,21 @@ async function loadSettings() {
     const dayRow = scheduleTable.rows[1].cells;
     const nightRow = scheduleTable.rows[2].cells;
 
-    // 昼（index 1〜7）
-    data.schedule["昼"].forEach((val, i) => {
-      dayRow[i + 1].textContent = val;
-    });
+    if (data.schedule && data.schedule["昼"] && data.schedule["夜"]) {
+      data.schedule["昼"].forEach((val, i) => {
+        dayRow[i + 1].textContent = val;
+      });
 
-    // 夜（index 1〜7）
-    data.schedule["夜"].forEach((val, i) => {
-      nightRow[i + 1].textContent = val;
-    });
+      data.schedule["夜"].forEach((val, i) => {
+        nightRow[i + 1].textContent = val;
+      });
+    } else {
+      console.warn("schedule data missing:", data.schedule);
+    }
 
     // ▼ お知らせの反映
     const noticeArea = document.getElementById("notice-area");
-    if (data.notice.enabled) {
+    if (data.notice && data.notice.enabled) {
       noticeArea.innerHTML = `
         <h3>${data.notice.title}</h3>
         <p>${data.notice.body}</p>
