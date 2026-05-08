@@ -64,8 +64,6 @@ document.querySelector(".settings-save-btn").addEventListener("click", async () 
     body: JSON.stringify(payload)
   });
 
-  // ▼ 修正ポイント（ここだけ変えた）
-  const data = await res.json();
-  const msg = Object.keys(data)[0];  // 最初のキー名を取得
-  alert(msg);  // → 「設定内容を更新しました！」だけが表示される
+  const text = await res.text();
+  alert(text);
 });

@@ -1,91 +1,61 @@
+const fetch = require("node-fetch");
+
 exports.handler = async (event) => {
-  console.log("DEBUG: save-settings START");
-
-  const owner = "otyoufx";
-  const repo = "kahokuya-web";
-  const path = "netlify/functions/data.json";
-  const token = process.env.GITHUB_TOKEN;
-
-  if (!token) {
-    console.error("Missing GITHUB_TOKEN");
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Missing GITHUB_TOKEN" })
-    };
-  }
-
-  // 保存するデータ
-  let newData;
   try {
-    newData = JSON.parse(event.body);
-  } catch (e) {
-    console.error("Invalid JSON:", e);
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "Invalid JSON" })
-    };
-  }
+    const body = JSON.parse(event.body);
 
-  try {
-    // ① 現在の SHA を取得
-    const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-    const getRes = await fetch(getUrl, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github+json"
+    const token = process.env.GITHUB_TOKEN;
+    const repoOwner = "YOUR_GITHUB_NAME";
+    const repoName = "YOUR_REPO_NAME";
+    const filePath = "data.json";
+
+    // ▼ 現在の data.json を取得
+    const getRes = await fetch(
+      `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
+      {
+        headers: {
+          Authorization: `token ${token}`,
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
 
-    if (!getRes.ok) {
-      const text = await getRes.text();
-      console.error("GitHub GET error:", text);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "GitHub GET error", detail: text })
-      };
-    }
+    const getData = await getRes.json();
 
-    const getJson = await getRes.json();
-    const sha = getJson.sha;
+    // ▼ 更新内容を base64 に変換
+    const newContent = Buffer.from(JSON.stringify(body, null, 2)).toString("base64");
 
-    // ② 新しい JSON を base64 に変換
-    const encoded = Buffer.from(JSON.stringify(newData, null, 2)).toString("base64");
+    // ▼ Netlify ビルドをスキップするコミットメッセージ
+    const commitMessage = "update settings [skip ci]";
 
-    // ③ PUT で更新
-    const putRes = await fetch(getUrl, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github+json"
-      },
-      body: JSON.stringify({
-        message: "Update settings via Netlify Function",
-        content: encoded,
-        sha: sha
-      })
-    });
+    // ▼ GitHub API へ PUT（更新）
+    await fetch(
+      `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `token ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: commitMessage,
+          content: newContent,
+          sha: getData.sha
+        })
+      }
+    );
 
-    if (!putRes.ok) {
-      const text = await putRes.text();
-      console.error("GitHub PUT error:", text);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "GitHub PUT error", detail: text })
-      };
-    }
-
-    console.log("DEBUG: Saved settings OK");
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ "設定内容を更新しました！": true })
-  };
+    // ▼ UI に返すレスポンス（純テキスト）
+    return {
+      statusCode: 200,
+      body: "設定内容を更新しました！"
+    };
 
   } catch (err) {
     console.error("save-settings error:", err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to save settings" })
+      body: "設定の保存に失敗しました。"
     };
   }
 };
