@@ -1,4 +1,4 @@
-const { getStore } = require("@netlify/blobs");
+const { kv } = require("@netlify/kv");
 const fs = require("fs");
 const path = require("path");
 
@@ -6,21 +6,11 @@ exports.handler = async () => {
   console.log("DEBUG: get-settings START");
 
   try {
-    // Netlify 上の Functions から使う場合は、siteID / token は不要
-    const store = getStore("settings");
+    // KV から読み込み
+    let data = await kv.get("settings:data.json");
+    console.log("DEBUG: KV GET:", data ? "HIT" : "MISS");
 
-    let data = null;
-
-    // Blobs 側に data.json があればそれを読む
-    try {
-      data = await store.get("data.json", { type: "json", fallback: null });
-      console.log("DEBUG: loaded from Blobs:", data ? "HIT" : "MISS");
-    } catch (e) {
-      console.log("DEBUG: store.get error, fallback to Git file:", e.message);
-      data = null;
-    }
-
-    // 初回 or Blobs にまだ無いときは Git の data.json を読む
+    // 初回 or KV に無い場合は Git の data.json を読む
     if (!data) {
       const filePath = path.join(__dirname, "data.json");
       console.log("DEBUG: reading Git data.json from", filePath);
@@ -28,9 +18,9 @@ exports.handler = async () => {
       const fileContent = fs.readFileSync(filePath, "utf-8");
       data = JSON.parse(fileContent);
 
-      // 読めたら Blobs に保存（ここで store が自動作成される）
-      await store.set("data.json", data, { type: "json" });
-      console.log("DEBUG: saved initial data.json to Blobs");
+      // KV に保存
+      await kv.set("settings:data.json", data);
+      console.log("DEBUG: KV SET done");
     }
 
     return {
