@@ -1,12 +1,12 @@
 {
-  "forceClosed": true,
+  "forceClosed": false,
   "schedule": {
     "昼": [
       "◯",
       "✕",
       "◯",
       "◯",
-      "✕",
+      "◯",
       "◯",
       "◯"
     ],
@@ -21,7 +21,7 @@
     ]
   },
   "notice": {
-    "enabled": true,
+    "enabled": false,
     "title": "2026/5/8",
     "body": "test"
   }
