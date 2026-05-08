@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ホームページに関するお問い合わせ｜山形肉そば 河北や</title>
+  <title>お問い合わせ｜山形肉そば 河北や</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "YuGothic", "Yu Gothic", "Meiryo", sans-serif;
@@ -11,6 +11,8 @@
       padding: 20px;
       max-width: 640px;
       margin: 0 auto;
+      line-height: 1.7;
+      font-size: 0.9rem;
     }
     h1 {
       font-size: 1.4rem;
@@ -18,8 +20,7 @@
       text-align: center;
     }
     p {
-      font-size: 0.9rem;
-      line-height: 1.6;
+      margin-bottom: 12px;
     }
     a {
       color: #0066cc;
@@ -31,17 +32,21 @@
 <h1>お問い合わせ</h1>
 
 <p>
-ホームページに関するお問い合わせは、以下のメールアドレスよりお願いいたします。<br>
-メールアプリが開きます。
+当店へのお問い合わせは、以下のメールアドレスよりお願いいたします。<br>
+クリックするとメールアプリが開きます。
 </p>
 
-<p>
-📩 <a href="mailto:">bootgm@gmail.com</a>
-</p>
+<p id="mail"></p>
 
-<p>
-※返信にはお時間をいただく場合がございます。ご了承ください。
-</p>
+<script>
+  // メールアドレスをJSで生成（スパム対策）
+  const user = "bootgm";          // ← ここを好きなユーザー名に
+  const domain = "gmail.com"; // ← ここをあなたのドメインに
+  const address = `${user}@${domain}`;
+
+  document.getElementById("mail").innerHTML =
+    `<a href="mailto:${address}">${address}</a>`;
+</script>
 
 <p style="margin-top:20px;">
 <a href="/privacy.html">プライバシーポリシーはこちら</a>
