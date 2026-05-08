@@ -16,7 +16,6 @@
       background-attachment: fixed;
     }
 
-
     .overlay {
       background: rgba(255, 255, 255, 0.85);
       padding: 20px;
@@ -49,25 +48,25 @@
 
     .small-small-card {
       font-size: 0.8rem;
-      max-width: 300px;   /* ← カードの最大幅を狭くする（お好みで調整OK） */
-      margin-left: auto;  /* 中央寄せ */
-      margin-right: auto; /* 中央寄せ */
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .small-card {
       font-size: 0.8rem;
-      max-width: 480px;   /* ← カードの最大幅を狭くする（お好みで調整OK） */
-      margin-left: auto;  /* 中央寄せ */
-      margin-right: auto; /* 中央寄せ */
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-	.aisatsu {
-	  font-size: 0.8rem;
-	  max-width: 480px;
-	  margin-left: auto;
-	  margin-right: auto;
-	  text-align: center;   /* ← これを追加 */
-	}
+    .aisatsu {
+      font-size: 0.8rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
 
     .section-title {
       font-size: 1rem;
@@ -111,36 +110,35 @@
       text-align: center;
       font-size: 0.7rem;
       color: #666;
-      /* color: #fff; */
       margin-top: 20px;
     }
 
-	.menu-list {
-	  list-style: none;
-	  padding: 0;
-	  margin: 6px 0 12px 0;
-	  padding-left: 1em;
-	}
-
-	.menu-list li {
-	  display: flex;
-	  justify-content: space-between;
-	  padding: 4px 0;
-	  border-bottom: 1px dotted #ddd;
+    .menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 12px 0;
       padding-left: 1em;
-	}
+    }
 
-	.menu-list .price {
-	  text-align: right;
-	  min-width: 60px;
-	}
+    .menu-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px dotted #ddd;
+      padding-left: 1em;
+    }
 
-	.menu-category {
-	  font-weight: 600;
-	  margin-top: 16px;
-	  margin-bottom: 6px;
-	  font-size: 0.8rem;
-	}
+    .menu-list .price {
+      text-align: right;
+      min-width: 60px;
+    }
+
+    .menu-category {
+      font-weight: 600;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+    }
 
     .menu-tabs {
       display: flex;
@@ -148,13 +146,12 @@
       gap: 8px;
     }
 
-	/* タブの見た目（必要なら調整） */
-	.menu-tab.active {
-	  background: #ddd !important;
-	  font-weight: 600;
-	}
-    
+    .menu-tab.active {
+      background: #ddd !important;
+      font-weight: 600;
+    }
   </style>
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9948349926149649"
      crossorigin="anonymous"></script>
 </head>
@@ -162,53 +159,16 @@
 <body>
   <div class="overlay">
 
-		<script>
-		  // Nitter RSS
-		  const rssUrl = "https://nitter.net/kahokuya_riki/rss";
-
-		  fetch(rssUrl)
-		    .then(res => res.text())
-		    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
-		    .then(data => {
-		      const item = data.querySelector("item");
-		      if (!item) throw new Error("No tweet found");
-
-		      // 最新ツイートのURL
-		      const tweetUrl = item.querySelector("link").textContent;
-
-		      // Twitframe に渡す
-		      const twitframeUrl = "https://twitframe.com/show?url=" + encodeURIComponent(tweetUrl);
-
-		      const frame = document.getElementById("tweet-frame");
-		      frame.src = twitframeUrl;
-
-		      // fallback のリンク先もセット
-		      document.getElementById("tweet-link").href = tweetUrl;
-
-		      // 5秒後に読み込みチェック
-		      setTimeout(() => {
-		        if (frame.contentWindow === null || frame.offsetHeight < 50) {
-		          document.getElementById("tweet-fallback").style.display = "block";
-		        }
-		      }, 5000);
-
-		    })
-		    .catch(err => {
-		      document.getElementById("tweet-fallback").style.display = "block";
-		    });
-		</script>
-
     <h1>山形肉そば 河北や</h1>
     <div class="tagline">山形県河北町のご当地そばを戸田で。</div>
 
-    <!-- ヒーロー -->
-	<div class="card small-small-card" style="text-align:center;">
-	  <p id="now-time" style="font-size:1.1rem; font-weight:700;">只今の日時：</p>
-	  <p id="now-status" style="font-size:1.1rem; font-weight:700;">営業状況を判定中…</p>
-	</div>
+    <!-- 営業状況 -->
+    <div class="card small-small-card" style="text-align:center;">
+      <p id="now-time" style="font-size:1.1rem; font-weight:700;">只今の日時：</p>
+      <p id="now-status" style="font-size:1.1rem; font-weight:700;">営業状況を判定中…</p>
+    </div>
 
-
- 	<div class="card aisatsu">
+    <div class="card aisatsu">
       元祖冷たい肉そばの町、山形県河北町の<br>
       「かほく冷たい肉そば大使」「河北発信大使」<br>
       を拝命され東京神田にて2004年より20年、「河北や」を営んできました。<br>
@@ -217,41 +177,40 @@
     </div>
 
     <!-- 営業時間 -->
-		<div class="card small-card">
-		  <div class="section-title">営業日・営業時間</div>
+    <div class="card small-card">
+      <div class="section-title">営業日・営業時間</div>
 
-			<table class="schedule-table">
-			  <tr>
-			    <th>＼</th>
-			    <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th>
-			  </tr>
-			  <tr>
-			    <th>昼</th>
-			    <td>◯</td><td>✕</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td>
-			  </tr>
-			  <tr>
-			    <th>夜</th>
-			    <td>◯</td><td>✕</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td><td>✕</td>
-			  </tr>
-			</table>
+      <table class="schedule-table">
+        <tr>
+          <th>＼</th>
+          <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th>
+        </tr>
+        <tr>
+          <th>昼</th>
+          <td>◯</td><td>✕</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td>
+        </tr>
+        <tr>
+          <th>夜</th>
+          <td>◯</td><td>✕</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td><td>✕</td>
+        </tr>
+      </table>
 
+      <div style="margin-top:12px; font-size:0.8rem;">
+        <strong>【平日】</strong><br>
+        11:00〜14:00／17:00〜21:30<br><br>
 
-		  <div style="margin-top:12px; font-size:0.8rem;">
-		    <strong>【平日】</strong><br>
-		    11:00〜14:00／17:00〜21:30<br><br>
+        <strong>【土曜】</strong><br>
+        11:00〜15:00／17:00〜21:30<br><br>
 
-		    <strong>【土曜】</strong><br>
-		    11:00〜15:00／17:00〜21:30<br><br>
+        <strong>【日曜】</strong><br>
+        11:00〜15:00<br><br>
 
-		    <strong>【日曜】</strong><br>
-		    11:00〜15:00<br><br>
-
-		    <strong>【定休日】</strong><br>
-		    火曜、祝日
-		  </div>
-		  <div> ※連休等により臨時店休日等発生する場合がございます。 </div>
-		  <div>   ご来店前に下部にあります「お知らせ・最新情報」を一度ご確認下さい。 </div>
-		</div>
+        <strong>【定休日】</strong><br>
+        火曜、祝日
+      </div>
+      <div> ※連休等により臨時店休日等発生する場合がございます。 </div>
+      <div>   ご来店前に下部にあります「お知らせ・最新情報」を一度ご確認下さい。 </div>
+    </div>
 
     <!-- アクセス地図 -->
     <div class="card small-card">
@@ -270,319 +229,355 @@
       </iframe>
     </div>
 
-<!--テストここから-->
-
-<!-- お知らせ・最新情報 -->
-<div class="card small-card">
-  <div class="section-title">お知らせ・最新情報</div>
-	<p style="font-size:0.85rem; line-height:1.5; margin-bottom:12px;">
-	  お店からのお知らせ、最新情報は店主のXをご確認ください。<br>
-	  ※Xの埋め込みが取得できないため、現在Nitter経由で<br>
-	  　Xのポスト取得表示しております。<br>
-	  直接店主のXを確認する場合は
-	  <a id="tweet-link" href="https://x.com/kahokuya_riki" target="_blank">こちらをクリック</a>（Xを開きます）
-	</p>
-	
-  <iframe
-    src="https://nitter.net/kahokuya_riki"
-    width="100%"
-    height="600"
-    style="border:0; border-radius:12px; background:#fff;"
-    loading="lazy">
-  </iframe>
-</div>
-
-
-<!--
+    <!-- お知らせ・最新情報 -->
     <div class="card small-card">
       <div class="section-title">お知らせ・最新情報</div>
-      <ul>
-        <li>お店からのお知らせ、最新情報は店主のXをご確認ください</li>
-      </ul>
-	  <iframe id="tweet-frame"
-	    width="100%"
-	    height="350"
-	    frameborder="0"
-	    scrolling="no"
-	    style="border-radius: 12px; background:#f9f9f9;">
-	  </iframe>
 
-	  <div id="tweet-fallback" style="display:none; margin-top:10px; font-size:0.85rem; text-align:center;">
-	    表示されない場合は
-	    <a id="tweet-link" href="https://x.com/kahokuya_riki" target="_blank">こちらをクリック</a> ※Xを開きます<br>
-	  </div>
-	</div>
--->
+      <!-- 動的お知らせエリア -->
+      <div id="notice-area" style="font-size:0.9rem; line-height:1.5; margin-bottom:12px;">
+        （お知らせを読み込み中…）
+      </div>
 
-		<div class="card small-card">
-		  <div class="section-title">お品書き</div>
+      <p style="font-size:0.85rem; line-height:1.5; margin-bottom:12px;">
+        お店からのお知らせ、最新情報は店主のXをご確認ください。<br>
+        ※Xの埋め込みが取得できないため、現在Nitter経由で<br>
+        　Xのポスト取得表示しております。<br>
+        直接店主のXを確認する場合は
+        <a id="tweet-link" href="https://x.com/kahokuya_riki" target="_blank">こちらをクリック</a>（Xを開きます）
+      </p>
 
-		  <!-- タブ -->
-		  <div class="menu-tabs" style="display:flex; gap:8px; margin-bottom:12px;">
-		    <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（平日・土曜・日曜）</div>
-		    <div class="menu-tab" data-target="dinner" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ディナー（平日・土曜）</div>
-		    <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチおつまみ（土曜・日曜）</div>
-		    <div class="menu-tab" data-target="drink" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ドリンク（ディナー(平日・土曜)、日曜）</div>
-		  </div>
+      <iframe
+        src="https://nitter.net/kahokuya_riki"
+        width="100%"
+        height="600"
+        style="border:0; border-radius:12px; background:#fff;"
+        loading="lazy">
+      </iframe>
+    </div>
 
-		  <!-- ▼ ランチ（平日・土曜・日曜） -->
-			<div class="menu-content" id="lunch" style="display:block;">
-			  <strong style="font-size:0.9rem;">【ランチ（平日・土曜・日曜）】</strong>
-			  <div class="menu-category">単品メニュー</div>
-			  <ul class="menu-list">
-			    <li><span>肉そば（冷・温）</span><span class="price">750円</span></li>
-			    <li><span>肉そば 肉ダブル（冷・温）</span><span class="price">950円</span></li>
+    <!-- お品書き -->
+    <div class="card small-card">
+      <div class="section-title">お品書き</div>
 
-			    <li><span>肉中華（冷・温）</span><span class="price">850円</span></li>
-			    <li><span>肉中華 肉ダブル（冷・温）</span><span class="price">1050円</span></li>
+      <!-- タブ -->
+      <div class="menu-tabs" style="display:flex; gap:8px; margin-bottom:12px;">
+        <div class="menu-tab active" data-target="lunch" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチ（平日・土曜・日曜）</div>
+        <div class="menu-tab" data-target="dinner" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ディナー（平日・土曜）</div>
+        <div class="menu-tab" data-target="weekend" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ランチおつまみ（土曜・日曜）</div>
+        <div class="menu-tab" data-target="drink" style="cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee;">ドリンク（ディナー(平日・土曜)、日曜）</div>
+      </div>
 
-			    <li><span>特製カレーライス</span><span class="price">850円</span></li>
-			    <li><span>特製カレーライス（チーズ入り）</span><span class="price">950円</span></li>
-				<li><span>自慢のカツカレー</span><span class="price">1350円</span></li>
-			  </ul>
+      <!-- ▼ ランチ（平日・土曜・日曜） -->
+      <div class="menu-content" id="lunch" style="display:block;">
+        <strong style="font-size:0.9rem;">【ランチ（平日・土曜・日曜）】</strong>
+        <div class="menu-category">単品メニュー</div>
+        <ul class="menu-list">
+          <li><span>肉そば（冷・温）</span><span class="price">750円</span></li>
+          <li><span>肉そば 肉ダブル（冷・温）</span><span class="price">950円</span></li>
 
-			  <div class="menu-category">セットメニュー</div>
-			  <ul class="menu-list">
-			    <li><span>ミニカツ丼＋肉そば（冷・温）</span><span class="price">1150円</span></li>
-			    <li><span>ミニカツ丼＋肉中華（冷・温）</span><span class="price">1250円</span></li>
-			    <li><span>ミニカツ丼＋肉中華（冷・温）大盛セット</span><span class="price">1350円</span></li>
-			    <li><span>サービスランチ 肉そば（冷・温）</span><span class="price">1100円</span></li>
-			    <li><span>サービスランチ 肉中華（冷・温）</span><span class="price">1200円</span></li>
-			  </ul>
+          <li><span>肉中華（冷・温）</span><span class="price">850円</span></li>
+          <li><span>肉中華 肉ダブル（冷・温）</span><span class="price">1050円</span></li>
 
-			  <div class="menu-category">肉そばトッピング</div>
-			  <ul class="menu-list">
-			    <li><span>わかめ・生卵</span><span class="price">80円</span></li>
-			    <li><span>揚げ餅</span><span class="price">130円</span></li>
-			    <li><span>麺大盛</span><span class="price">200円</span></li>
-			    <li><span>肉ダブル追加</span><span class="price">200円</span></li>
-			  </ul>
+          <li><span>特製カレーライス</span><span class="price">850円</span></li>
+          <li><span>特製カレーライス（チーズ入り）</span><span class="price">950円</span></li>
+          <li><span>自慢のカツカレー</span><span class="price">1350円</span></li>
+        </ul>
 
-			  <div class="menu-category">その他</div>
-			  <ul class="menu-list">
-			    <li><span>単品C(日によって変わります)</span><span class="price">200円</span></li>
-			  </ul>
+        <div class="menu-category">セットメニュー</div>
+        <ul class="menu-list">
+          <li><span>ミニカツ丼＋肉そば（冷・温）</span><span class="price">1150円</span></li>
+          <li><span>ミニカツ丼＋肉中華（冷・温）</span><span class="price">1250円</span></li>
+          <li><span>ミニカツ丼＋肉中華（冷・温）大盛セット</span><span class="price">1350円</span></li>
+          <li><span>サービスランチ 肉そば（冷・温）</span><span class="price">1100円</span></li>
+          <li><span>サービスランチ 肉中華（冷・温）</span><span class="price">1200円</span></li>
+        </ul>
 
-			  <div class="menu-category">ドリンク</div>
-			  <ul class="menu-list">
+        <div class="menu-category">肉そばトッピング</div>
+        <ul class="menu-list">
+          <li><span>わかめ・生卵</span><span class="price">80円</span></li>
+          <li><span>揚げ餅</span><span class="price">130円</span></li>
+          <li><span>麺大盛</span><span class="price">200円</span></li>
+          <li><span>肉ダブル追加</span><span class="price">200円</span></li>
+        </ul>
+
+        <div class="menu-category">その他</div>
+        <ul class="menu-list">
+          <li><span>単品C(日によって変わります)</span><span class="price">200円</span></li>
+        </ul>
+
+        <div class="menu-category">ドリンク</div>
+        <ul class="menu-list">
           <li><span>生ビール</span><span class="price">580円</span></li>
-			  </ul>
-			</div>
+        </ul>
+      </div>
 
-		  <!-- ▼ ディナー（平日・土曜） -->
-			<div class="menu-content" id="dinner" style="display:none;">
-			  <strong style="font-size:0.9rem;">【ディナー（平日・土曜）】</strong><br>
+      <!-- ▼ ディナー（平日・土曜） -->
+      <div class="menu-content" id="dinner" style="display:none;">
+        <strong style="font-size:0.9rem;">【ディナー（平日・土曜）】</strong><br>
         ※日によって欠品しているメニューもあります。<br>
         　当日あるかは店主にご確認ください。<br>
         <br>
-			  <!-- 名物・山形料理 -->
-			  <div class="menu-category">名物・山形料理</div>
-			  <ul class="menu-list">
-			    <li><span>山形芋煮</span><span class="price">1380円</span></li>
-			    <li><span>山形芋煮（ハーフ）</span><span class="price">700円</span></li>
-			    <li><span>玉こんにゃく</span><span class="price">480円</span></li>
-			    <li><span>山形牛馬チャーシュー</span><span class="price">680円</span></li>
-			    <li><span>山形牛モツ煮込み</span><span class="price">780円</span></li>
-			    <li><span>もってのほか（食用菊）</span><span class="price">480円</span></li>
-			    <li><span>ねぎのせ</span><span class="price">480円</span></li>
-			    <li><span>※その他、季節によって山形のつまみが出ます（お店で確認ください）</span><span class="price">-</span></li>
-			  </ul>
+        <div class="menu-category">名物・山形料理</div>
+        <ul class="menu-list">
+          <li><span>山形芋煮</span><span class="price">1380円</span></li>
+          <li><span>山形芋煮（ハーフ）</span><span class="price">700円</span></li>
+          <li><span>玉こんにゃく</span><span class="price">480円</span></li>
+          <li><span>山形牛馬チャーシュー</span><span class="price">680円</span></li>
+          <li><span>山形牛モツ煮込み</span><span class="price">780円</span></li>
+          <li><span>もってのほか（食用菊）</span><span class="price">480円</span></li>
+          <li><span>ねぎのせ</span><span class="price">480円</span></li>
+          <li><span>※その他、季節によって山形のつまみが出ます（お店で確認ください）</span><span class="price">-</span></li>
+        </ul>
 
-			  <!-- 刺身・冷菜 -->
-			  <div class="menu-category">刺身・冷菜</div>
-			  <ul class="menu-list">
-			    <li><span>本まぐろ赤身</span><span class="price">580円</span></li>
-			    <li><span>わかめの刺身</span><span class="price">580円</span></li>
-			    <li><span>ひじきの刺身</span><span class="price">580円</span></li>
-			  </ul>
+        <div class="menu-category">刺身・冷菜</div>
+        <ul class="menu-list">
+          <li><span>本まぐろ赤身</span><span class="price">580円</span></li>
+          <li><span>わかめの刺身</span><span class="price">580円</span></li>
+          <li><span>ひじきの刺身</span><span class="price">580円</span></li>
+        </ul>
 
-			  <!-- 揚げ物・焼き物 -->
-			  <div class="menu-category">揚げ物・焼き物</div>
-			  <ul class="menu-list">
-				<li><span>和牛メンチ</span><span class="price">580円</span></li>
-			    <li><span>厚切りハムカツ</span><span class="price">580円</span></li>
-			    <li><span>チーズフライ（欧風）</span><span class="price">480円</span></li>
-			    <li><span>カキのチーズ春巻</span><span class="price">680円</span></li>
-			    <li><span>里芋唐揚げ</span><span class="price">580円</span></li>
-			    <li><span>そば味噌漬</span><span class="price">580円</span></li>
-			    <li><span>もろこしかき揚げ</span><span class="price">580円</span></li>
-			    <li><span>真鴨岩塩焼き</span><span class="price">880円</span></li>
-				<li><span>空豆の天ぷら</span><span class="price">580円</span></li>
-			  </ul>
+        <div class="menu-category">揚げ物・焼き物</div>
+        <ul class="menu-list">
+          <li><span>和牛メンチ</span><span class="price">580円</span></li>
+          <li><span>厚切りハムカツ</span><span class="price">580円</span></li>
+          <li><span>チーズフライ（欧風）</span><span class="price">480円</span></li>
+          <li><span>カキのチーズ春巻</span><span class="price">680円</span></li>
+          <li><span>里芋唐揚げ</span><span class="price">580円</span></li>
+          <li><span>そば味噌漬</span><span class="price">580円</span></li>
+          <li><span>もろこしかき揚げ</span><span class="price">580円</span></li>
+          <li><span>真鴨岩塩焼き</span><span class="price">880円</span></li>
+          <li><span>空豆の天ぷら</span><span class="price">580円</span></li>
+        </ul>
 
-			  <!-- 洋食系 -->
-			  <div class="menu-category">洋食系</div>
-			  <ul class="menu-list">
-			    <li><span>牛すじ赤ワイン煮</span><span class="price">680円</span></li>
-			    <li><span>牛のホホ肉赤ワイン煮</span><span class="price">1580円</span></li>
-			    <li><span>三元豚ポークブラウン</span><span class="price">780円</span></li>
-			    <li><span>三元豚シュークルート</span><span class="price">1200円</span></li>
-			    <li><span>本日のクリームコロッケ</span><span class="price">680円</span></li>
-			    <li><span>スペインコロッケ</span><span class="price">680円</span></li>
-				<li><span>おつまみカレードリア</span><span class="price">680円</span></li>
-			  </ul>
-			</div>
-
-			  <!-- ▼ ランチおつまみ（土曜・日曜） -->
-			<div class="menu-content" id="weekend" style="display:none;">
-			<strong style="font-size:0.9rem;">【ランチ（土曜・日曜）】</strong><br>
-          土日ランチの時間帯にお酒を飲まれる方用のメニューとなります。<br>
-          ※記載は2026/3/16時点でのメニューになります。<br>
-            週によりメニューは変わります。<br>
-        <br>
-			  <div class="menu-category">固定おつまみ※品切れの場合はご了承下さい</div>
-			  <ul class="menu-list">
-			    <li><span>ねぎのせ</span><span class="price">480円</span></li>
-			    <li><span>玉こんにゃく</span><span class="price">480円</span></li>
-			    <li><span>野沢菜漬け</span><span class="price">480円</span></li>
-			    <li><span>山形芋煮</span><span class="price">1380円</span></li>
-			    <li><span>山形芋煮（ハーフ）</span><span class="price">700円</span></li>
-			    <li><span>マカロニサラダ</span><span class="price">480円</span></li>
-			  </ul>
-			  <div class="menu-category">変動メニュー</div>
-			  <ul class="menu-list">
-			    <li><span>馬チャーシュー</span><span class="price">680円</span></li>
-			    <li><span>セリおひたし</span><span class="price">580円</span></li>
-			    <li><span>雑草（山形のヒョウ）</span><span class="price">580円</span></li>
-			    <li><span>わかめの刺身</span><span class="price">580円</span></li>
-			    <li><span>チーズフライ（既製品）</span><span class="price">480円</span></li>
-			    <li><span>ポテトフライ</span><span class="price">480円</span></li>
-			  </ul>
+        <div class="menu-category">洋食系</div>
+        <ul class="menu-list">
+          <li><span>牛すじ赤ワイン煮</span><span class="price">680円</span></li>
+          <li><span>牛のホホ肉赤ワイン煮</span><span class="price">1580円</span></li>
+          <li><span>三元豚ポークブラウン</span><span class="price">780円</span></li>
+          <li><span>三元豚シュークルート</span><span class="price">1200円</span></li>
+          <li><span>本日のクリームコロッケ</span><span class="price">680円</span></li>
+          <li><span>スペインコロッケ</span><span class="price">680円</span></li>
+          <li><span>おつまみカレードリア</span><span class="price">680円</span></li>
+        </ul>
       </div>
 
-	  		  <!-- ▼ ドリンク（ディナー(平日・土曜)、日曜） -->
-			<div class="menu-content" id="drink" style="display:none;">
-			  <strong style="font-size:0.9rem;">【ドリンク（ディナー(平日・土曜)、日曜）】</strong><br>
-          お酒の席として入られた方を対象としております。<br>
-          ※仕入れ状況により品切れの場合がございます。ご了承ください<br>
+      <!-- ▼ ランチおつまみ（土曜・日曜） -->
+      <div class="menu-content" id="weekend" style="display:none;">
+        <strong style="font-size:0.9rem;">【ランチ（土曜・日曜）】</strong><br>
+        土日ランチの時間帯にお酒を飲まれる方用のメニューとなります。<br>
+        ※記載は2026/3/16時点でのメニューになります。<br>
+        週によりメニューは変わります。<br>
         <br>
-			  <div class="menu-category">ビール・ハイボール・酎ハイ</div>
-			  <ul class="menu-list">
-			    <li><span>生ビール</span><span class="price">580円</span></li>
-			    <li><span>ハイボール</span><span class="price">480円</span></li>
-			    <li><span>レモン酎ハイ</span><span class="price">480円</span></li>
-			    <li><span>烏龍ハイ</span><span class="price">480円</span></li>
-			    <li><span>緑茶ハイ</span><span class="price">480円</span></li>
-			    <li><span>梅干酎ハイ</span><span class="price">480円</span></li>
-			    <li><span>そば焼酎蕎麦湯割り</span><span class="price">580円</span></li>
-			    <li><span>芋焼酎蕎麦湯割り</span><span class="price">580円</span></li>
-			  </ul>
-			  <div class="menu-category">日本酒</div>
-			  <ul class="menu-list">
-			    <li><span>山形正宗 辛口純米</span><span class="price">980円</span></li>
-			    <li><span>山法師 純米爆雷辛口原酒生酒</span><span class="price">980円</span></li>
-			    <li><span>天弓 純米</span><span class="price">880円</span></li>
-			    <li><span>秀鳳 特別純米 超辛口</span><span class="price">880円</span></li>
-			    <li><span>上喜元 純米</span><span class="price">880円</span></li>
-			    <li><span>出羽桜</span><span class="price">880円</span></li>
-			    <li><span>ばくれん 超辛口吟醸</span><span class="price">880円</span></li>
-			    <li><span>雅山流 生 本醸造 無濾過</span><span class="price">880円</span></li>
-			    <li><span>鬼王丸(原酒) 純米 激辛 あら玉 </span><span class="price">880円</span></li>
-			    <li><span>栄光富士 本醸造 辛口</span><span class="price">780円</span></li>
-			    <li><span>万流 栄光富士</span><span class="price">780円</span></li>
-			  </ul>
-			  <div class="menu-category">ワイン</div>
-			  <ul class="menu-list">
-			    <li><span>山形赤ワイン</span><span class="price">600円</span></li>
-			    <li><span>山形白ワイン</span><span class="price">600円</span></li>
-			  </ul>
-			  <div class="menu-category">ボトル・割り物</div>
-			  <ul class="menu-list">
-			    <li><span>金宮ボトル(保持期限２ヶ月)</span><span class="price">2,400円</span></li>
-			    <li><span>炭酸デカンタ</span><span class="price">450円</span></li>
-			    <li><span>烏龍茶デカンタ</span><span class="price">450円</span></li>
-			    <li><span>緑茶デカンタ</span><span class="price">450円</span></li>
-			    <li><span>常陸の秋蕎麦 蕎麦湯デカンタ</span><span class="price">450円</span></li>
-			    <li><span>カットレモン</span><span class="price">250円</span></li>
-			    <li><span>梅干し(3粒)</span><span class="price">250円</span></li>
-			  </ul>
-			  <div class="menu-category">ソフトドリンク</div>
-			  <ul class="menu-list">
-			    <li><span>山形のりんごジュース(100%果汁)</span><span class="price">450円</span></li>
-			    <li><span>山形のももジュース(100%果汁)</span><span class="price">450円</span></li>
-			  </ul>
+        <div class="menu-category">固定おつまみ※品切れの場合はご了承下さい</div>
+        <ul class="menu-list">
+          <li><span>ねぎのせ</span><span class="price">480円</span></li>
+          <li><span>玉こんにゃく</span><span class="price">480円</span></li>
+          <li><span>野沢菜漬け</span><span class="price">480円</span></li>
+          <li><span>山形芋煮</span><span class="price">1380円</span></li>
+          <li><span>山形芋煮（ハーフ）</span><span class="price">700円</span></li>
+          <li><span>マカロニサラダ</span><span class="price">480円</span></li>
+        </ul>
+
+        <div class="menu-category">変動メニュー</div>
+        <ul class="menu-list">
+          <li><span>馬チャーシュー</span><span class="price">680円</span></li>
+          <li><span>セリおひたし</span><span class="price">580円</span></li>
+          <li><span>雑草（山形のヒョウ）</span><span class="price">580円</span></li>
+          <li><span>わかめの刺身</span><span class="price">580円</span></li>
+          <li><span>チーズフライ（既製品）</span><span class="price">480円</span></li>
+          <li><span>ポテトフライ</span><span class="price">480円</span></li>
+        </ul>
       </div>
 
-	</div>
+      <!-- ▼ ドリンク（ディナー(平日・土曜)、日曜） -->
+      <div class="menu-content" id="drink" style="display:none;">
+        <strong style="font-size:0.9rem;">【ドリンク（ディナー(平日・土曜)、日曜）】</strong><br>
+        お酒の席として入られた方を対象としております。<br>
+        ※仕入れ状況により品切れの場合がございます。ご了承ください<br>
+        <br>
+        <div class="menu-category">ビール・ハイボール・酎ハイ</div>
+        <ul class="menu-list">
+          <li><span>生ビール</span><span class="price">580円</span></li>
+          <li><span>ハイボール</span><span class="price">480円</span></li>
+          <li><span>レモン酎ハイ</span><span class="price">480円</span></li>
+          <li><span>烏龍ハイ</span><span class="price">480円</span></li>
+          <li><span>緑茶ハイ</span><span class="price">480円</span></li>
+          <li><span>梅干酎ハイ</span><span class="price">480円</span></li>
+          <li><span>そば焼酎蕎麦湯割り</span><span class="price">580円</span></li>
+          <li><span>芋焼酎蕎麦湯割り</span><span class="price">580円</span></li>
+        </ul>
 
+        <div class="menu-category">日本酒</div>
+        <ul class="menu-list">
+          <li><span>山形正宗 辛口純米</span><span class="price">980円</span></li>
+          <li><span>山法師 純米爆雷辛口原酒生酒</span><span class="price">980円</span></li>
+          <li><span>天弓 純米</span><span class="price">880円</span></li>
+          <li><span>秀鳳 特別純米 超辛口</span><span class="price">880円</span></li>
+          <li><span>上喜元 純米</span><span class="price">880円</span></li>
+          <li><span>出羽桜</span><span class="price">880円</span></li>
+          <li><span>ばくれん 超辛口吟醸</span><span class="price">880円</span></li>
+          <li><span>雅山流 生 本醸造 無濾過</span><span class="price">880円</span></li>
+          <li><span>鬼王丸(原酒) 純米 激辛 あら玉 </span><span class="price">880円</span></li>
+          <li><span>栄光富士 本醸造 辛口</span><span class="price">780円</span></li>
+          <li><span>万流 栄光富士</span><span class="price">780円</span></li>
+        </ul>
 
-  <div>
-    <footer>© 2004-2026 山形肉そば 河北や</footer>
+        <div class="menu-category">ワイン</div>
+        <ul class="menu-list">
+          <li><span>山形赤ワイン</span><span class="price">600円</span></li>
+          <li><span>山形白ワイン</span><span class="price">600円</span></li>
+        </ul>
+
+        <div class="menu-category">ボトル・割り物</div>
+        <ul class="menu-list">
+          <li><span>金宮ボトル(保持期限２ヶ月)</span><span class="price">2,400円</span></li>
+          <li><span>炭酸デカンタ</span><span class="price">450円</span></li>
+          <li><span>烏龍茶デカンタ</span><span class="price">450円</span></li>
+          <li><span>緑茶デカンタ</span><span class="price">450円</span></li>
+          <li><span>常陸の秋蕎麦 蕎麦湯デカンタ</span><span class="price">450円</span></li>
+          <li><span>カットレモン</span><span class="price">250円</span></li>
+          <li><span>梅干し(3粒)</span><span class="price">250円</span></li>
+        </ul>
+
+        <div class="menu-category">ソフトドリンク</div>
+        <ul class="menu-list">
+          <li><span>山形のりんごジュース(100%果汁)</span><span class="price">450円</span></li>
+          <li><span>山形のももジュース(100%果汁)</span><span class="price">450円</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div>
+      <footer>© 2004-2026 山形肉そば 河北や</footer>
+    </div>
+    <footer>
+      <a href="/contact.html">お問い合わせ</a> |
+      <a href="/privacy.html">プライバシーポリシー</a>
+    </footer>
+
+    <!-- 営業状況ロジック（現行ロジック維持） -->
+    <script>
+      function updateTimeAndStatus() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+
+        // 日付表示
+        document.getElementById("now-time").textContent =
+          `只今の日時：${y}/${m}/${d} ${hh}:${mm}`;
+
+        const day = now.getDay(); // 0=日,1=月,2=火...
+        const time = hh + ":" + mm;
+
+        let isOpen = false;
+
+        if (day === 2) {
+          // 火曜：定休日
+          isOpen = false;
+        } else if (day === 0) {
+          // 日曜：昼のみ
+          if (time >= "11:00" && time <= "15:00") isOpen = true;
+        } else if (day === 6) {
+          // 土曜：昼11-15、夜17-21:30
+          if ((time >= "11:00" && time <= "15:00") ||
+              (time >= "17:00" && time <= "21:30")) isOpen = true;
+        } else {
+          // 平日（月・水・木・金）
+          if ((time >= "11:00" && time <= "14:00") ||
+              (time >= "17:00" && time <= "21:30")) isOpen = true;
+        }
+
+        document.getElementById("now-status").textContent =
+          isOpen ? "営業中です。" : "営業時間外です。";
+      }
+
+      // 初回実行＆1分ごと更新（forceClosed=false のときにも使う）
+      updateTimeAndStatus();
+      setInterval(updateTimeAndStatus, 60000);
+    </script>
+
+    <!-- 設定反映（get-settings → 営業状況・営業時間・お知らせ） -->
+    <script>
+      async function loadSettings() {
+        try {
+          const res = await fetch("/.netlify/functions/get-settings", { cache: "no-store" });
+          if (!res.ok) throw new Error("get-settings failed");
+
+          const data = await res.json();
+
+          // A. forceClosed（臨時休業）
+          if (data.forceClosed) {
+            document.getElementById("now-status").textContent = "本日は臨時休業です";
+          } else {
+            // B. 通常ロジック（曜日＋時間）
+            updateTimeAndStatus();
+          }
+
+          // 営業日・営業時間（schedule-table）
+          const table = document.querySelector(".schedule-table");
+          const dayRow = table.rows[1].cells;
+          const nightRow = table.rows[2].cells;
+
+          data.schedule["昼"].forEach((val, i) => {
+            dayRow[i + 1].textContent = val;
+          });
+
+          data.schedule["夜"].forEach((val, i) => {
+            nightRow[i + 1].textContent = val;
+          });
+
+          // お知らせ
+          const noticeArea = document.getElementById("notice-area");
+          if (data.notice.enabled) {
+            noticeArea.innerHTML = `
+              <strong>${data.notice.title}</strong><br>
+              <span>${data.notice.body}</span>
+            `;
+          } else {
+            noticeArea.textContent = "（お知らせはありません）";
+          }
+
+        } catch (err) {
+          console.error("設定の読み込みに失敗:", err);
+          document.getElementById("now-status").textContent = "設定の読み込みに失敗しました";
+        }
+      }
+
+      loadSettings();
+    </script>
+
+    <!-- メニュータブ切り替え -->
+    <script>
+      document.querySelectorAll('.menu-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          const target = tab.dataset.target;
+          document.querySelectorAll('.menu-content').forEach(c => {
+            c.style.display = (c.id === target) ? 'block' : 'none';
+          });
+        });
+      });
+    </script>
+
+    <!-- 広告 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9948349926149649"
+       crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9948349926149649"
+         data-ad-slot="8299677906"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
   </div>
-  <footer>
-    <a href="/contact.html">お問い合わせ</a> |
-    <a href="/privacy.html">プライバシーポリシー</a>
-  </footer>
-
-	<script>
-	function updateTimeAndStatus() {
-	  const now = new Date();
-	  const y = now.getFullYear();
-	  const m = String(now.getMonth() + 1).padStart(2, '0');
-	  const d = String(now.getDate()).padStart(2, '0');
-	  const hh = String(now.getHours()).padStart(2, '0');
-	  const mm = String(now.getMinutes()).padStart(2, '0');
-
-	  // 日付表示
-	  document.getElementById("now-time").textContent =
-	    `只今の日時：${y}/${m}/${d} ${hh}:${mm}`;
-
-	  // 営業判定
-	  const day = now.getDay(); // 0=日,1=月,2=火...
-	  const time = hh + ":" + mm;
-
-	  let isOpen = false;
-
-	  if (day === 2) {
-	    // 火曜：定休日
-	    isOpen = false;
-	  } else if (day === 0) {
-	    // 日曜：昼のみ
-	    if (time >= "11:00" && time <= "15:00") isOpen = true;
-	  } else if (day === 6) {
-	    // 土曜：昼11-15、夜17-21:30
-	    if ((time >= "11:00" && time <= "15:00") ||
-	        (time >= "17:00" && time <= "21:30")) isOpen = true;
-	  } else {
-	    // 平日（月・水・木・金）
-	    if ((time >= "11:00" && time <= "14:00") ||
-	        (time >= "17:00" && time <= "21:30")) isOpen = true;
-	  }
-
-	  document.getElementById("now-status").textContent =
-	    isOpen ? "営業中です。" : "営業時間外です。";
-	}
-
-	// 初回実行
-	updateTimeAndStatus();
-	// 1分ごとに更新
-	setInterval(updateTimeAndStatus, 60000);
-	</script>
-
-	<script>
-	document.querySelectorAll('.menu-tab').forEach(tab => {
-	  tab.addEventListener('click', () => {
-	    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-	    tab.classList.add('active');
-
-	    const target = tab.dataset.target;
-	    document.querySelectorAll('.menu-content').forEach(c => {
-	      c.style.display = (c.id === target) ? 'block' : 'none';
-	    });
-	  });
-	});
-	</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9948349926149649"
-     crossorigin="anonymous"></script>
-<!-- 広告 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9948349926149649"
-     data-ad-slot="8299677906"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>  
 </body>
 </html>

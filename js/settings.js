@@ -27,6 +27,7 @@ async function loadSettingsToUI() {
 loadSettingsToUI();
 
 
+// ▼ 保存処理
 document.querySelector(".settings-save-btn").addEventListener("click", async () => {
   const forceClosed = document.querySelector("input[name='forceClosed']:checked").value === "closed";
 
@@ -63,6 +64,8 @@ document.querySelector(".settings-save-btn").addEventListener("click", async () 
     body: JSON.stringify(payload)
   });
 
-  const text = await res.text();
-  alert(text || "保存しました！");
+  // ▼ 修正ポイント（ここだけ変えた）
+  const data = await res.json();
+  const msg = Object.keys(data)[0];  // 最初のキー名を取得
+  alert(msg);  // → 「設定内容を更新しました！」だけが表示される
 });

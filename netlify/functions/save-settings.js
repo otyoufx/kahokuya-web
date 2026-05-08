@@ -76,10 +76,10 @@ exports.handler = async (event) => {
 
     console.log("DEBUG: Saved settings OK");
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ status: "OK" })
-    };
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ "設定内容を更新しました！": true })
+  };
 
   } catch (err) {
     console.error("save-settings error:", err);
