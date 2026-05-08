@@ -1,5 +1,3 @@
-const fetch = require("node-fetch");
-
 exports.handler = async () => {
   console.log("DEBUG: get-settings START");
 
