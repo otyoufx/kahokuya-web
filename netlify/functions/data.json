@@ -1,5 +1,5 @@
 {
-  "forceClosed": true,
+  "forceClosed": false,
   "schedule": {
     "昼": [
       "◯",
@@ -14,15 +14,15 @@
       "◯",
       "✕",
       "◯",
-      "✕",
+      "◯",
       "◯",
       "◯",
       "✕"
     ]
   },
   "notice": {
-    "enabled": true,
-    "title": "test",
-    "body": "tdata"
+    "enabled": false,
+    "title": "2026/5/8",
+    "body": "test"
   }
 }
