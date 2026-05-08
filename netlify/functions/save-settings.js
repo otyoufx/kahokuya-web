@@ -3,9 +3,9 @@ exports.handler = async (event) => {
     const body = JSON.parse(event.body);
 
     const token = process.env.GITHUB_TOKEN;
-    const repoOwner = "YOUR_GITHUB_NAME";
-    const repoName = "YOUR_REPO_NAME";
-    const filePath = "data.json";
+    const repoOwner = "otyoufx";
+    const repoName = "kahokuya-web";
+    const filePath = "netlify/functions/data.json";
 
     // ▼ 現在の data.json を取得
     const getRes = await fetch(
