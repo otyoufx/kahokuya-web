@@ -3,8 +3,8 @@
   "schedule": {
     "monday": {
       "day": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "11:00",
         "end": "14:00"
       },
@@ -31,8 +31,8 @@
     },
     "wednesday": {
       "day": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "11:00",
         "end": "14:00"
       },
@@ -45,8 +45,8 @@
     },
     "thursday": {
       "day": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "11:00",
         "end": "14:00"
       },
@@ -59,8 +59,8 @@
     },
     "friday": {
       "day": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "11:00",
         "end": "14:00"
       },
@@ -73,8 +73,8 @@
     },
     "saturday": {
       "day": {
-        "openMark": "✕",
-        "enabled": false,
+        "openMark": "◯",
+        "enabled": true,
         "start": "13:04",
         "end": "15:00"
       },
@@ -101,8 +101,8 @@
     },
     "holiday": {
       "day": {
-        "openMark": "✕",
-        "enabled": false,
+        "openMark": "◯",
+        "enabled": true,
         "start": "11:00",
         "end": "15:00"
       },
