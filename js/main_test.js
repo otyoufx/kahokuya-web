@@ -87,13 +87,8 @@ async function updateBusinessStatus() {
     const s = schedule[slot];
     if (!s) continue;
 
-    // openMark ✕ → 休み
     if (s.openMark !== "◯") continue;
-
-    // enabled false → 休み
     if (!s.enabled) continue;
-
-    // start/end 空 → 休み
     if (!s.start || !s.end) continue;
 
     const start = s.start;
@@ -149,16 +144,13 @@ function buildWeekdayRange(data, slot) {
     let ed = toMinutes(s.end);
     if (st == null || ed == null) continue;
 
-    // 範囲制限
     if (slot === "day") {
-      // ランチ：11:00〜15:00 の範囲にクリップ
       const minLimit = toMinutes("11:00");
       const maxLimit = toMinutes("15:00");
       if (ed <= minLimit || st >= maxLimit) continue;
       st = Math.max(st, minLimit);
       ed = Math.min(ed, maxLimit);
     } else {
-      // ディナー：17:00〜22:00 の範囲にクリップ
       const minLimit = toMinutes("17:00");
       const maxLimit = toMinutes("22:00");
       if (ed <= minLimit || st >= maxLimit) continue;
@@ -225,10 +217,10 @@ function updateBusinessText() {
   if (weekdayDay || weekdayNight) {
     html += `<strong>【平日】</strong><br>`;
     if (weekdayDay) {
-      html += `ランチ：${weekdayDay.start}〜${weekdayDay.end}<br>`;
+      html += `　ランチ：${weekdayDay.start}〜${weekdayDay.end}<br>`;
     }
     if (weekdayNight) {
-      html += `ディナー：${weekdayNight.start}〜${weekdayNight.end}<br>`;
+      html += `　ディナー：${weekdayNight.start}〜${weekdayNight.end}<br>`;
     }
     html += `<br>`;
   }
@@ -240,15 +232,16 @@ function updateBusinessText() {
   if (satDay || satNight) {
     html += `<strong>【土曜】</strong><br>`;
     if (satDay) {
-      html += `ランチ：${satDay.start}〜${satDay.end}<br>`;
+      html += `　ランチ：${satDay.start}〜${satDay.end}<br>`;
     }
     if (satNight) {
-      html += `ディナー：${satNight.start}〜${satNight.end}<br>`;
+      html += `　ディナー：${satNight.start}〜${satNight.end}<br>`;
     }
     html += `<br>`;
+  } else {
+    // 両方✕ → 定休日として表示
+    html += `<strong>【土曜】</strong><br>　定休日<br><br>`;
   }
-
-  // 土曜が両方✕の場合は、ここでは何も出さない（定休日扱いは日曜・祝日と同じルールで後段処理）
 
   // ■ 日曜・祝日の定休日／営業
   const sunDay = buildSingleDayRange(data.schedule.sunday?.day, "day");
@@ -261,39 +254,34 @@ function updateBusinessText() {
 
   // 両方とも完全に休み → まとめて表示
   if (sundayAllClosed && holidayAllClosed) {
-    html += `<strong>【日曜・祝日】</strong>定休日<br>`;
+    html += `<strong>【日曜・祝日】</strong><br>　定休日<br>`;
   } else {
     // 日曜
-    if (sunDay || sunNight || !sundayAllClosed) {
-      if (sunDay || sunNight) {
-        html += `<strong>【日曜】</strong><br>`;
-        if (sunDay) {
-          html += `ランチ：${sunDay.start}〜${sunDay.end}<br>`;
-        }
-        if (sunNight) {
-          html += `ディナー：${sunNight.start}〜${sunNight.end}<br>`;
-        }
-        html += `<br>`;
-      } else if (!sundayAllClosed) {
-        // ここに来るケースはほぼないが、保険として
-        html += `<strong>【日曜】</strong>定休日<br>`;
+    if (sunDay || sunNight) {
+      html += `<strong>【日曜】</strong><br>`;
+      if (sunDay) {
+        html += `　ランチ：${sunDay.start}〜${sunDay.end}<br>`;
       }
+      if (sunNight) {
+        html += `　ディナー：${sunNight.start}〜${sunNight.end}<br>`;
+      }
+      html += `<br>`;
+    } else if (!sundayAllClosed) {
+      html += `<strong>【日曜】</strong><br>　定休日<br><br>`;
     }
 
     // 祝日
-    if (holDay || holNight || !holidayAllClosed) {
-      if (holDay || holNight) {
-        html += `<strong>【祝日】</strong><br>`;
-        if (holDay) {
-          html += `ランチ：${holDay.start}〜${holDay.end}<br>`;
-        }
-        if (holNight) {
-          html += `ディナー：${holNight.start}〜${holNight.end}<br>`;
-        }
-        html += `<br>`;
-      } else if (!holidayAllClosed) {
-        html += `<strong>【祝日】</strong>定休日<br>`;
+    if (holDay || holNight) {
+      html += `<strong>【祝日】</strong><br>`;
+      if (holDay) {
+        html += `　ランチ：${holDay.start}〜${holDay.end}<br>`;
       }
+      if (holNight) {
+        html += `　ディナー：${holNight.start}〜${holNight.end}<br>`;
+      }
+      html += `<br>`;
+    } else if (!holidayAllClosed) {
+      html += `<strong>【祝日】</strong><br>　定休日<br>`;
     }
   }
 
