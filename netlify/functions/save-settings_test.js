@@ -8,16 +8,33 @@ exports.handler = async (event) => {
     const repoName = "kahokuya-web";
     const filePath = "netlify/functions/data_test.json";
 
+    if (!token) {
+      console.error("Missing GITHUB_TOKEN");
+      return {
+        statusCode: 500,
+        body: "GITHUB_TOKEN が設定されていません。"
+      };
+    }
+
     // ▼ 現在の data_test.json を取得
     const getRes = await fetch(
       `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
       {
         headers: {
-          Authorization: `token ${token}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json"
         }
       }
     );
+
+    if (!getRes.ok) {
+      const text = await getRes.text();
+      console.error("GitHub GET error:", text);
+      return {
+        statusCode: 500,
+        body: "設定ファイルの取得に失敗しました。"
+      };
+    }
 
     const getData = await getRes.json();
 
@@ -28,12 +45,13 @@ exports.handler = async (event) => {
     const commitMessage = "update settings_test [skip ci]";
 
     // ▼ GitHub API へ PUT（更新）
-    await fetch(
+    const putRes = await fetch(
       `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
       {
         method: "PUT",
         headers: {
-          Authorization: `token ${token}`,
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json",
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -43,6 +61,15 @@ exports.handler = async (event) => {
         })
       }
     );
+
+    if (!putRes.ok) {
+      const text = await putRes.text();
+      console.error("GitHub PUT error:", text);
+      return {
+        statusCode: 500,
+        body: "設定（テスト版）の保存に失敗しました。"
+      };
+    }
 
     return {
       statusCode: 200,
