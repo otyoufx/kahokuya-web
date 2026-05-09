@@ -3,8 +3,8 @@
   "schedule": {
     "monday": {
       "day": {
-        "openMark": "✕",
-        "enabled": false,
+        "openMark": "◯",
+        "enabled": true,
         "start": "11:00",
         "end": "14:00"
       },
@@ -87,8 +87,8 @@
     },
     "sunday": {
       "day": {
-        "openMark": "✕",
-        "enabled": false,
+        "openMark": "◯",
+        "enabled": true,
         "start": "11:00",
         "end": "15:00"
       },
@@ -115,7 +115,7 @@
     }
   },
   "notice": {
-    "enabled": true,
+    "enabled": false,
     "title": "2026/5/9",
     "body": "テスト"
   }
