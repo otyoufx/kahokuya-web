@@ -1,0 +1,44 @@
+{
+  "forceClosed": false,
+
+  "schedule": {
+    "monday": {
+      "day":    { "openMark": "◯", "enabled": true,  "start": "11:00", "end": "14:00" },
+      "night":  { "openMark": "◯", "enabled": true,  "start": "17:00", "end": "21:30" }
+    },
+    "tuesday": {
+      "day":    { "openMark": "✕", "enabled": false, "start": "",      "end": "" },
+      "night":  { "openMark": "✕", "enabled": false, "start": "",      "end": "" }
+    },
+    "wednesday": {
+      "day":    { "openMark": "◯", "enabled": true,  "start": "11:00", "end": "14:00" },
+      "night":  { "openMark": "◯", "enabled": true,  "start": "17:00", "end": "21:30" }
+    },
+    "thursday": {
+      "day":    { "openMark": "◯", "enabled": true,  "start": "11:00", "end": "14:00" },
+      "night":  { "openMark": "◯", "enabled": true,  "start": "17:00", "end": "21:30" }
+    },
+    "friday": {
+      "day":    { "openMark": "◯", "enabled": true,  "start": "11:00", "end": "14:00" },
+      "night":  { "openMark": "◯", "enabled": true,  "start": "17:00", "end": "21:30" }
+    },
+    "saturday": {
+      "day":    { "openMark": "◯", "enabled": true,  "start": "11:00", "end": "15:00" },
+      "night":  { "openMark": "◯", "enabled": true,  "start": "17:00", "end": "21:30" }
+    },
+    "sunday": {
+      "day":    { "openMark": "◯", "enabled": true,  "start": "11:00", "end": "15:00" },
+      "night":  { "openMark": "✕", "enabled": false, "start": "",      "end": "" }
+    },
+    "holiday": {
+      "day":    { "openMark": "◯", "enabled": true,  "start": "11:00", "end": "15:00" },
+      "night":  { "openMark": "✕", "enabled": false, "start": "",      "end": "" }
+    }
+  },
+
+  "notice": {
+    "enabled": false,
+    "title": "",
+    "body": ""
+  }
+}

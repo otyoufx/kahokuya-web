@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サイト設定（テスト版）</title>
+
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
+    }
+    .time-input {
+      width: 80px;
+    }
+    .notice-card {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>🔧 サイト設定（テスト版）</h2>
+
+<!-- 営業モード -->
+<div>
+  <h3>営業モード</h3>
+  <label><input type="radio" name="forceClosed" value="open"> 通常判定</label><br>
+  <label><input type="radio" name="forceClosed" value="closed"> 強制休み</label>
+</div>
+
+<!-- 営業日・営業時間 -->
+<div>
+  <h3>曜日別・昼夜の営業設定</h3>
+
+  <table id="scheduleTable">
+    <tr>
+      <th>区分</th>
+      <th>月</th>
+      <th>火</th>
+      <th>水</th>
+      <th>木</th>
+      <th>金</th>
+      <th>土</th>
+      <th>日</th>
+      <th>祝</th>
+    </tr>
+
+    <!-- 昼 -->
+    <tr data-slot="day">
+      <td>昼</td>
+      <!-- 各曜日のセルは JS で生成 -->
+    </tr>
+
+    <!-- 夜 -->
+    <tr data-slot="night">
+      <td>夜</td>
+      <!-- 各曜日のセルは JS で生成 -->
+    </tr>
+  </table>
+</div>
+
+<!-- お知らせ -->
+<div>
+  <h3>お知らせ</h3>
+  <div class="notice-card">
+    <label><input type="checkbox" id="noticeEnabled"> お知らせを表示する</label>
+
+    <div>
+      <label>タイトル</label><br>
+      <input type="text" class="notice-title" style="width:100%">
+    </div>
+
+    <div>
+      <label>本文</label><br>
+      <textarea class="notice-body" rows="4" style="width:100%"></textarea>
+    </div>
+  </div>
+</div>
+
+<button id="saveBtn">保存</button>
+
+<script src="js/settings_test.js"></script>
+</body>
+</html>
