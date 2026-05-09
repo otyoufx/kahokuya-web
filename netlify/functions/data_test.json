@@ -1,5 +1,5 @@
 {
-  "forceClosed": true,
+  "forceClosed": false,
   "schedule": {
     "monday": {
       "day": {
@@ -12,7 +12,7 @@
         "openMark": "◯",
         "enabled": true,
         "start": "17:00",
-        "end": "22:30"
+        "end": "21:30"
       }
     },
     "tuesday": {
@@ -40,7 +40,7 @@
         "openMark": "◯",
         "enabled": true,
         "start": "17:00",
-        "end": "22:00"
+        "end": "21:31"
       }
     },
     "thursday": {
@@ -75,7 +75,7 @@
       "day": {
         "openMark": "◯",
         "enabled": true,
-        "start": "11:00",
+        "start": "12:03",
         "end": "15:00"
       },
       "night": {
@@ -115,7 +115,7 @@
     }
   },
   "notice": {
-    "enabled": true,
+    "enabled": false,
     "title": "2026/5/9",
     "body": "test"
   }
