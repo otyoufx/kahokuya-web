@@ -115,7 +115,7 @@
     }
   },
   "notice": {
-    "enabled": true,
+    "enabled": false,
     "title": "2026/5/9",
     "body": "test"
   }
