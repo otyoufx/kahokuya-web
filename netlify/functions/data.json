@@ -1,5 +1,5 @@
 {
-  "forceClosed": true,
+  "forceClosed": false,
   "schedule": {
     "monday": {
       "day": {
@@ -9,8 +9,8 @@
         "end": "14:00"
       },
       "night": {
-        "openMark": "✕",
-        "enabled": false,
+        "openMark": "◯",
+        "enabled": true,
         "start": "17:00",
         "end": "21:30"
       }
@@ -117,6 +117,6 @@
   "notice": {
     "enabled": true,
     "title": "2026/5/9",
-    "body": "テスト"
+    "body": "良い馬刺しがはいりました"
   }
 }
