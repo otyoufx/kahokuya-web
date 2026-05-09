@@ -3,6 +3,18 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
 
+    // ▼ パスワード判定（最優先）
+    if (!body.password || body.password !== process.env.ADMIN_PASSCODE) {
+      return {
+        statusCode: 403,
+        body: "パスワードが違います。"
+      };
+    }
+
+    // ▼ 保存用データから password を除外
+    const saveData = { ...body };
+    delete saveData.password;
+
     const token = process.env.GITHUB_TOKEN;
     const repoOwner = "otyoufx";
     const repoName = "kahokuya-web";
@@ -39,7 +51,7 @@ exports.handler = async (event) => {
     const getData = await getRes.json();
 
     // ▼ 更新内容を base64 に変換
-    const newContent = Buffer.from(JSON.stringify(body, null, 2)).toString("base64");
+    const newContent = Buffer.from(JSON.stringify(saveData, null, 2)).toString("base64");
 
     // ▼ Netlify ビルドをスキップするコミットメッセージ
     const commitMessage = "update settings_test [skip ci]";

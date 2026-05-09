@@ -111,7 +111,8 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
       enabled: document.getElementById("noticeEnabled").checked,
       title: document.querySelector(".notice-title").value,
       body: document.querySelector(".notice-body").value
-    }
+    },
+    password: document.getElementById("updatePass").value
   };
 
   const res = await fetch("/.netlify/functions/save-settings_test", {
@@ -122,4 +123,9 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
 
   const text = await res.text();
   alert(text);
+});
+
+document.getElementById("togglePass").addEventListener("click", () => {
+  const pass = document.getElementById("updatePass");
+  pass.type = pass.type === "password" ? "text" : "password";
 });
