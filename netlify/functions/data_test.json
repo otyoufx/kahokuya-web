@@ -87,8 +87,8 @@
     },
     "sunday": {
       "day": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "11:00",
         "end": "15:00"
       },
