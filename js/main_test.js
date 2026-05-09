@@ -285,5 +285,20 @@ function updateBusinessText() {
     }
   }
 
+  // ▼ 初期ロード
+  async function loadSettingsTest() {
+    const res = await fetch("/.netlify/functions/get-settings_test");
+    window.__settings = await res.json();
+
+    updateBusinessStatus();
+    updateScheduleTable();
+    updateBusinessText();
+  }
+
+  // ページ読み込み後に実行
+  loadSettingsTest();
+  setInterval(updateBusinessStatus, 60000);
+
+
   container.innerHTML = html;
 }

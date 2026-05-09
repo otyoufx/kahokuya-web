@@ -6,6 +6,18 @@
   <title>サイト設定</title>
 
   <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
+    }
+    .time-input {
+      width: 80px;
+    }
     .notice-card {
       background: #f8f9fa;
       padding: 15px;
@@ -13,120 +25,78 @@
       border: 1px solid #ddd;
       margin-top: 10px;
     }
-    .notice-toggle {
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-    .notice-toggle input {
-      margin-right: 8px;
-    }
-    .notice-fields {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .notice-label {
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: -4px;
-    }
-    .notice-title,
-    .notice-body {
-      width: 100%;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background: #fff;
-    }
   </style>
 </head>
 
 <body>
 
-<div class="settings-container">
+<h2>🔧 サイト設定</h2>
 
-  <h2>🔧 サイト設定（管理用）</h2>
+<!-- 営業モード -->
+<div>
+  <h3>営業モード</h3>
+  <label><input type="radio" name="forceClosed" value="open"> 通常判定</label><br>
+  <label><input type="radio" name="forceClosed" value="closed"> 強制休み</label>
+</div>
 
-  <!-- 営業モード -->
-  <div class="settings-block">
-    <h3>営業モード</h3>
+<!-- 営業日・営業時間 -->
+<div>
+  <h3>曜日別・昼夜の営業設定</h3>
 
-    <label>
-      <input type="radio" name="forceClosed" value="open" checked>
-      通常判定（曜日と時間で自動判定）
-    </label><br>
+  <table id="scheduleTable">
+    <tr>
+      <th>区分</th>
+      <th>月</th>
+      <th>火</th>
+      <th>水</th>
+      <th>木</th>
+      <th>金</th>
+      <th>土</th>
+      <th>日</th>
+      <th>祝</th>
+    </tr>
 
-    <label>
-      <input type="radio" name="forceClosed" value="closed">
-      強制的に「休み」にする
-    </label>
-  </div>
+    <!-- 昼 -->
+    <tr data-slot="day">
+      <td>昼</td>
+      <!-- 各曜日のセルは JS で生成 -->
+    </tr>
 
-  <!-- 営業日・営業時間 -->
-  <div class="settings-block">
-    <h3>営業日・営業時間（◯✕編集）</h3>
+    <!-- 夜 -->
+    <tr data-slot="night">
+      <td>夜</td>
+      <!-- 各曜日のセルは JS で生成 -->
+    </tr>
+  </table>
+</div>
 
-    <table class="settings-table">
-      <tr>
-        <th></th>
-        <th>月</th>
-        <th>火</th>
-        <th>水</th>
-        <th>木</th>
-        <th>金</th>
-        <th>土</th>
-        <th>日</th>
-      </tr>
+<!-- お知らせ -->
+<div>
+  <h3>お知らせ</h3>
+  <div class="notice-card">
+    <label><input type="checkbox" id="noticeEnabled"> お知らせを表示する</label>
 
-      <tr>
-        <td>昼</td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-      </tr>
+    <div>
+      <label>タイトル</label><br>
+      <input type="text" class="notice-title" style="width:100%">
+    </div>
 
-      <tr>
-        <td>夜</td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-        <td><select><option>◯</option><option>✕</option></select></td>
-      </tr>
-    </table>
-  </div>
-
-  <!-- お知らせ -->
-  <div class="settings-block">
-    <h3>お知らせ（自由書き込み）</h3>
-
-    <div class="notice-card">
-      <label class="notice-toggle">
-        <input type="checkbox" id="noticeEnabled">
-        お知らせを表示する
-      </label>
-
-      <div class="notice-fields">
-        <label class="notice-label">タイトル</label>
-        <input type="text" class="notice-title">
-
-        <label class="notice-label">本文</label>
-        <textarea class="notice-body" rows="4"></textarea>
-      </div>
+    <div>
+      <label>本文</label><br>
+      <textarea class="notice-body" rows="4" style="width:100%"></textarea>
     </div>
   </div>
-
-  <button class="settings-save-btn">保存</button>
-
 </div>
+
+<div style="margin-top:15px;">
+  <label>更新用パスワード</label><br>
+  <div style="display:flex; align-items:center; gap:6px; max-width:250px;">
+    <input type="password" id="updatePass" style="flex:1; padding:4px;">
+    <button type="button" id="togglePass" style="padding:4px 8px;">👁</button>
+  </div>
+</div>
+
+<button id="saveBtn">保存</button>
 
 <script src="js/settings.js"></script>
 </body>

@@ -87,7 +87,7 @@
     .schedule-table td {
       border: 1px solid #ddd;
       padding: 6px 2px;
-      width: 12.5%; /* 8列なので100% ÷ 8 */
+      width: 12.5%;
     }
 
     .schedule-table th {
@@ -151,10 +151,10 @@
       font-weight: 600;
     }
 
-	.notice-divider {
-  	  border-bottom: 1px solid #ddd;
-  	  margin: 8px 0 12px 0;
-	}
+    .notice-divider {
+      border-bottom: 1px solid #ddd;
+      margin: 8px 0 12px 0;
+    }
   </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9948349926149649"
@@ -192,29 +192,21 @@
         </tr>
         <tr>
           <th>昼</th>
-          <td>◯</td><td>✕</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         </tr>
         <tr>
           <th>夜</th>
-          <td>◯</td><td>✕</td><td>◯</td><td>◯</td><td>◯</td><td>◯</td><td>✕</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         </tr>
       </table>
 
-      <div style="margin-top:12px; font-size:0.8rem;">
-        <strong>【平日】</strong><br>
-        11:00〜14:00／17:00〜21:30<br><br>
+      <!-- 動的に平日・土曜・日曜・祝日・定休日を表示する領域 -->
+      <div id="business-text" style="margin-top:12px; font-size:0.8rem;"></div>
 
-        <strong>【土曜】</strong><br>
-        11:00〜15:00／17:00〜21:30<br><br>
-
-        <strong>【日曜】</strong><br>
-        11:00〜15:00<br><br>
-
-        <strong>【定休日】</strong><br>
-        火曜、祝日
+      <div style="margin-top:8px; font-size:0.8rem;">
+        ※連休等により臨時店休日等発生する場合がございます。<br>
+        ご来店前に下部にあります「お知らせ・最新情報」を一度ご確認下さい。
       </div>
-      <div> ※連休等により臨時店休日等発生する場合がございます。 </div>
-      <div>   ご来店前に下部にあります「お知らせ・最新情報」を一度ご確認下さい。 </div>
     </div>
 
     <!-- アクセス地図 -->
@@ -243,7 +235,7 @@
         （お知らせを読み込み中…）
       </div>
 
-	  <div class="notice-divider"></div>
+      <div class="notice-divider"></div>
 
       <p style="font-size:0.85rem; line-height:1.5; margin-bottom:12px;">
         お知らせ以外の最新の情報は店主のXをご確認ください。<br>
@@ -463,49 +455,8 @@
       <a href="/privacy.html">プライバシーポリシー</a>
     </footer>
 
-    <!-- 営業状況ロジック（現行ロジック維持） -->
-    <script>
-      function updateTimeAndStatus() {
-        const now = new Date();
-        const y = now.getFullYear();
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        const d = String(now.getDate()).padStart(2, '0');
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-
-        // 日付表示
-        document.getElementById("now-time").textContent =
-          `只今の日時：${y}/${m}/${d} ${hh}:${mm}`;
-
-        const day = now.getDay(); // 0=日,1=月,2=火...
-        const time = hh + ":" + mm;
-
-        let isOpen = false;
-
-        if (day === 2) {
-          // 火曜：定休日
-          isOpen = false;
-        } else if (day === 0) {
-          // 日曜：昼のみ
-          if (time >= "11:00" && time <= "15:00") isOpen = true;
-        } else if (day === 6) {
-          // 土曜：昼11-15、夜17-21:30
-          if ((time >= "11:00" && time <= "15:00") ||
-              (time >= "17:00" && time <= "21:30")) isOpen = true;
-        } else {
-          // 平日（月・水・木・金）
-          if ((time >= "11:00" && time <= "14:00") ||
-              (time >= "17:00" && time <= "21:30")) isOpen = true;
-        }
-
-        document.getElementById("now-status").textContent =
-          isOpen ? "営業中です。" : "営業時間外です。";
-      }
-
-      // 初回実行＆1分ごと更新（forceClosed=false のときにも使う）
-      updateTimeAndStatus();
-      setInterval(updateTimeAndStatus, 60000);
-    </script>
+    <!-- 新仕様ロジック -->
+    <script src="/js/main.js"></script>
 
     <!-- 設定反映（get-settings → 営業状況・営業時間・お知らせ） -->
     <script>
@@ -516,30 +467,21 @@
 
           const data = await res.json();
 
-          // A. forceClosed（臨時休業）
-          if (data.forceClosed) {
-            document.getElementById("now-status").textContent = "本日は臨時休業です";
-          } else {
-            // B. 通常ロジック（曜日＋時間）
-            updateTimeAndStatus();
-          }
+          // main.js に渡す
+          window.__settings = data;
 
-          // 営業日・営業時間（schedule-table）
-          const table = document.querySelector(".schedule-table");
-          const dayRow = table.rows[1].cells;
-          const nightRow = table.rows[2].cells;
+          // 営業状況を更新
+          updateBusinessStatus();
 
-          data.schedule["昼"].forEach((val, i) => {
-            dayRow[i + 1].textContent = val;
-          });
+          // 営業日・営業時間テーブル（◯✕）を更新
+          updateScheduleTable();
 
-          data.schedule["夜"].forEach((val, i) => {
-            nightRow[i + 1].textContent = val;
-          });
+          // 営業日・営業時間テキスト（平日・土曜・日曜・祝日・定休日）を更新
+          updateBusinessText();
 
           // お知らせ
           const noticeArea = document.getElementById("notice-area");
-          if (data.notice.enabled) {
+          if (data.notice && data.notice.enabled) {
             noticeArea.innerHTML = `
               <strong>${data.notice.title}</strong><br>
               <span>${data.notice.body}</span>
@@ -555,6 +497,7 @@
       }
 
       loadSettings();
+      setInterval(updateBusinessStatus, 60000);
     </script>
 
     <!-- メニュータブ切り替え -->
