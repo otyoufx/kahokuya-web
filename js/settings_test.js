@@ -20,7 +20,7 @@ function createCell() {
 
 // ▼ 初期ロード
 async function loadSettingsToUI() {
-  const res = await fetch("/.netlify/functions/get-settings-test");
+  const res = await fetch("/.netlify/functions/get-settings_test");
   const data = await res.json();
 
   // 営業モード
@@ -114,7 +114,7 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
     }
   };
 
-  const res = await fetch("/.netlify/functions/save-settings-test", {
+  const res = await fetch("/.netlify/functions/save-settings_test", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
