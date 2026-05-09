@@ -9,15 +9,15 @@
         "end": "14:00"
       },
       "night": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "17:00",
         "end": "21:30"
       }
     },
     "tuesday": {
       "day": {
-        "openMark": "✕",
+        "openMark": "◯",
         "enabled": false,
         "start": "",
         "end": ""
@@ -37,8 +37,8 @@
         "end": "14:00"
       },
       "night": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "17:00",
         "end": "21:31"
       }
@@ -51,8 +51,8 @@
         "end": "14:00"
       },
       "night": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "17:00",
         "end": "21:30"
       }
@@ -65,22 +65,22 @@
         "end": "14:00"
       },
       "night": {
-        "openMark": "◯",
-        "enabled": true,
+        "openMark": "✕",
+        "enabled": false,
         "start": "17:00",
         "end": "21:30"
       }
     },
     "saturday": {
       "day": {
-        "openMark": "✕",
-        "enabled": false,
+        "openMark": "◯",
+        "enabled": true,
         "start": "13:04",
         "end": "15:00"
       },
       "night": {
-        "openMark": "✕",
-        "enabled": false,
+        "openMark": "◯",
+        "enabled": true,
         "start": "17:00",
         "end": "21:30"
       }
