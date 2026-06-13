@@ -28,15 +28,17 @@ exports.handler = async (event) => {
       };
     }
 
+    // ▼ GitHub API 共通ヘッダー（通信安定版）
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "User-Agent": "NetlifyFunction"   // ← これが無いと ETIMEDOUT が起きる
+    };
+
     // ▼ 現在の data.json を取得
     const getRes = await fetch(
       `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/vnd.github+json"
-        }
-      }
+      { headers }
     );
 
     if (!getRes.ok) {
@@ -61,7 +63,9 @@ exports.handler = async (event) => {
     };
 
     // ▼ base64 に変換
-    const newContent = Buffer.from(JSON.stringify(currentJson, null, 2)).toString("base64");
+    const newContent = Buffer.from(
+      JSON.stringify(currentJson, null, 2)
+    ).toString("base64");
 
     // ▼ GitHub API へ PUT
     const putRes = await fetch(
@@ -69,8 +73,7 @@ exports.handler = async (event) => {
       {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/vnd.github+json",
+          ...headers,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
