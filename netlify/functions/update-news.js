@@ -8,6 +8,7 @@ exports.handler = async (event) => {
     }
 
     const { from, subject, body } = JSON.parse(event.body);
+    const newBody = body.trim();
 
     // 今日の日付 YYYY/MM/DD
     const now = new Date();
@@ -32,7 +33,7 @@ exports.handler = async (event) => {
     const headers = {
       Authorization: `Bearer ${token}`,
       Accept: "application/vnd.github+json",
-      "User-Agent": "NetlifyFunction"   // ← これが無いと ETIMEDOUT が起きる
+      "User-Agent": "NetlifyFunction"
     };
 
     // ▼ 現在の data.json を取得
@@ -55,11 +56,24 @@ exports.handler = async (event) => {
       Buffer.from(getData.content, "base64").toString("utf8")
     );
 
+    // ▼ 差分チェック：本文が同じなら更新しない
+    if (
+      currentJson.notice &&
+      typeof currentJson.notice.body === "string" &&
+      currentJson.notice.body.trim() === newBody
+    ) {
+      console.log("No change detected. Skip update.");
+      return {
+        statusCode: 200,
+        body: "no change"
+      };
+    }
+
     // ▼ notice を上書き
     currentJson.notice = {
       enabled: true,
       title: today,
-      body: body.trim()
+      body: newBody
     };
 
     // ▼ base64 に変換
