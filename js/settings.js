@@ -58,9 +58,8 @@ async function loadSettingsToUI() {
     nightCell.querySelector(".end").value = nightSlot.end;
   });
 
-  // お知らせ
+  // お知らせ（タイトル欄は削除したので読み込まない）
   document.getElementById("noticeEnabled").checked = data.notice.enabled;
-  document.querySelector(".notice-title").value = data.notice.title;
   document.querySelector(".notice-body").value = data.notice.body;
 }
 
@@ -104,13 +103,20 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
     };
   });
 
+  // ▼ 今日の日付 YYYY/MM/DD を自動生成
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  const today = `${yyyy}/${mm}/${dd}`;
+
   const payload = {
     forceClosed,
     schedule,
     notice: {
       enabled: document.getElementById("noticeEnabled").checked,
-      title: document.querySelector(".notice-title").value,
-      body: document.querySelector(".notice-body").value
+      title: today,  // ← 自動生成
+      body: document.querySelector(".notice-body").value.trim()
     },
     password: document.getElementById("updatePass").value
   };
