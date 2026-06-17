@@ -1,129 +1,28 @@
 {
   "forceClosed": false,
   "schedule": {
-    "monday": {
-      "day": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "11:00",
-        "end": "14:00"
-      },
-      "night": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "17:00",
-        "end": "21:30"
-      }
-    },
-    "tuesday": {
-      "day": {
-        "openMark": "✕",
-        "enabled": false,
-        "start": "",
-        "end": ""
-      },
-      "night": {
-        "openMark": "✕",
-        "enabled": false,
-        "start": "",
-        "end": ""
-      }
-    },
-    "wednesday": {
-      "day": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "11:00",
-        "end": "14:00"
-      },
-      "night": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "17:00",
-        "end": "21:30"
-      }
-    },
-    "thursday": {
-      "day": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "11:00",
-        "end": "14:00"
-      },
-      "night": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "17:00",
-        "end": "21:30"
-      }
-    },
-    "friday": {
-      "day": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "11:00",
-        "end": "14:00"
-      },
-      "night": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "17:00",
-        "end": "21:30"
-      }
-    },
-    "saturday": {
-      "day": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "11:00",
-        "end": "15:00"
-      },
-      "night": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "17:00",
-        "end": "21:30"
-      }
-    },
-    "sunday": {
-      "day": {
-        "openMark": "◯",
-        "enabled": true,
-        "start": "11:00",
-        "end": "15:00"
-      },
-      "night": {
-        "openMark": "✕",
-        "enabled": false,
-        "start": "",
-        "end": ""
-      }
-    },
-    "holiday": {
-      "day": {
-        "openMark": "✕",
-        "enabled": false,
-        "start": "",
-        "end": ""
-      },
-      "night": {
-        "openMark": "✕",
-        "enabled": false,
-        "start": "",
-        "end": ""
-      }
-    }
+    "monday": { "day": { "openMark": "◯", "enabled": true, "start": "11:00", "end": "14:00" },
+                "night": { "openMark": "◯", "enabled": true, "start": "17:00", "end": "21:30" } },
+    "tuesday": { "day": { "openMark": "✕", "enabled": false, "start": "", "end": "" },
+                 "night": { "openMark": "✕", "enabled": false, "start": "", "end": "" } },
+    "wednesday": { "day": { "openMark": "◯", "enabled": true, "start": "11:00", "end": "14:00" },
+                   "night": { "openMark": "◯", "enabled": true, "start": "17:00", "end": "21:30" } },
+    "thursday": { "day": { "openMark": "◯", "enabled": true, "start": "11:00", "end": "14:00" },
+                  "night": { "openMark": "◯", "enabled": true, "start": "17:00", "end": "21:30" } },
+    "friday": { "day": { "openMark": "◯", "enabled": true, "start": "11:00", "end": "14:00" },
+                "night": { "openMark": "◯", "enabled": true, "start": "17:00", "end": "21:30" } },
+    "saturday": { "day": { "openMark": "◯", "enabled": true, "start": "11:00", "end": "15:00" },
+                  "night": { "openMark": "◯", "enabled": true, "start": "17:00", "end": "21:30" } },
+    "sunday": { "day": { "openMark": "◯", "enabled": true, "start": "11:00", "end": "15:00" },
+                "night": { "openMark": "✕", "enabled": false, "start": "", "end": "" } },
+    "holiday": { "day": { "openMark": "✕", "enabled": false, "start": "", "end": "" },
+                 "night": { "openMark": "✕", "enabled": false, "start": "", "end": "" } }
   },
   "notice": {
     "enabled": true,
     "title": "2026/06/15",
     "body": "自家製ハムペーストも山形ワインに合いますよ。是非！ちなみに。明日火曜日は定休日です。"
   },
-  "images": [
-    "https://drive.google.com/uc?export=view&id=1VcFvdK3hqp2v6fspMNCsMxZO5gHt3bhV",
-    "https://drive.google.com/uc?export=view&id=12ywJn3UtNmqXQXFsdL8ScMrbAgqnLMKS",
-    "https://drive.google.com/uc?export=view&id=1aU5TChFDiCQKDwEnJP3CPVibS8WvNyn7",
-    "https://drive.google.com/uc?export=view&id=1iBI-6honjOeX03OswRaQh_wddgU67plq"
-  ],
+  "images": [],
   "imageFolder": ""
 }

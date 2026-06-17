@@ -1,32 +1,23 @@
+const path = require("path");
+
 exports.handler = async (event) => {
   try {
     if (event.httpMethod !== "POST") {
-      return {
-        statusCode: 405,
-        body: "Method Not Allowed"
-      };
+      return { statusCode: 405, body: "Method Not Allowed" };
     }
 
-    // ▼ GAS から送られてくるデータ（画像URLのみ）
-    const { images, folderName } = JSON.parse(event.body);
+    const { folderName, images } = JSON.parse(event.body);
 
-    if (!images || images.length === 0) {
-      return {
-        statusCode: 400,
-        body: "No images provided"
-      };
+    if (!folderName || !images || images.length === 0) {
+      return { statusCode: 400, body: "Invalid payload" };
     }
 
     const token = process.env.GITHUB_TOKEN;
     const repoOwner = "otyoufx";
     const repoName = "kahokuya-web";
-    const filePath = "netlify/functions/data.json";
 
     if (!token) {
-      return {
-        statusCode: 500,
-        body: "GITHUB_TOKEN が設定されていません。"
-      };
+      return { statusCode: 500, body: "GITHUB_TOKEN missing" };
     }
 
     const headers = {
@@ -35,77 +26,73 @@ exports.handler = async (event) => {
       "User-Agent": "NetlifyFunction"
     };
 
-    // ▼ data.json を取得
+    // ▼ GitHub API: ファイル PUT
+    async function putFile(filePath, contentBase64, sha = null) {
+      const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+      const body = {
+        message: `upload image ${filePath} [skip ci]`,
+        content: contentBase64,
+      };
+
+      if (sha) body.sha = sha;
+
+      const res = await fetch(url, {
+        method: "PUT",
+        headers: { ...headers, "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("PUT error:", text);
+        throw new Error("GitHub PUT failed");
+      }
+
+      return res.json();
+    }
+
+    // ▼ 保存先
+    const baseDir = `public-images/${folderName}`;
+
+    // ▼ 画像保存
+    const savedUrls = [];
+
+    for (const img of images) {
+      const filePath = `${baseDir}/${img.filename}`;
+      await putFile(filePath, img.data);
+      savedUrls.push(`/public-images/${folderName}/${img.filename}`);
+    }
+
+    // ▼ data.json 更新
+    const dataPath = "netlify/functions/data.json";
+
     const getRes = await fetch(
-      `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
+      `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${dataPath}`,
       { headers }
     );
-
-    if (!getRes.ok) {
-      const text = await getRes.text();
-      console.error("GitHub GET error:", text);
-      return {
-        statusCode: 500,
-        body: "設定ファイルの取得に失敗しました。"
-      };
-    }
 
     const getData = await getRes.json();
     const currentJson = JSON.parse(
       Buffer.from(getData.content, "base64").toString("utf8")
     );
 
-    // ▼ “お知らせ” 関連は一切触らない
-    // notice というキーも使わない
+    currentJson.images = savedUrls;
+    currentJson.imageFolder = folderName;
 
-    // ▼ 画像ストック専用のキーに保存
-    currentJson.images = images;
-
-    if (folderName) {
-      currentJson.imageFolder = folderName;
-    }
-
-    // ▼ base64 に変換
     const newContent = Buffer.from(
       JSON.stringify(currentJson, null, 2)
     ).toString("base64");
 
-    // ▼ GitHub PUT
-    const putRes = await fetch(
-      `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
-      {
-        method: "PUT",
-        headers: {
-          ...headers,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          message: "update images only [skip ci]",
-          content: newContent,
-          sha: getData.sha
-        })
-      }
-    );
-
-    if (!putRes.ok) {
-      const text = await putRes.text();
-      console.error("GitHub PUT error:", text);
-      return {
-        statusCode: 500,
-        body: "画像の更新に失敗しました。"
-      };
-    }
+    await putFile(dataPath, newContent, getData.sha);
 
     return {
       statusCode: 200,
-      body: "images updated"
+      body: "images saved to GitHub"
     };
 
   } catch (err) {
     console.error("update-news error:", err);
-    return {
-      statusCode: 500,
-      body: "Error: " + err.message
-    };
+    return { statusCode: 500, body: "Error: " + err.message };
   }
 };
