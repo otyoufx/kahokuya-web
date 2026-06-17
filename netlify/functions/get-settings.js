@@ -43,8 +43,16 @@ exports.handler = async () => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+
+        // ▼▼▼ キャッシュ完全禁止（超重要） ▼▼▼
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+        "Surrogate-Control": "no-store"
+      },
+      body: JSON.stringify(data)
     };
 
   } catch (err) {
