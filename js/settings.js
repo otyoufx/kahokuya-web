@@ -78,7 +78,7 @@ function renderImages(images, folderName) {
 
 // ▼ 初期ロード
 async function loadSettingsToUI() {
-  const res = await fetch("/.netlify/functions/get-settings");
+  const res = await fetch("/.netlify/functions/get-settings?ts=" + Date.now());
   const data = await res.json();
 
   // 営業モード
