@@ -2,6 +2,7 @@ const path = require("path");
 
 exports.handler = async (event) => {
   try {
+    console.log("payload:", event.body);
     if (event.httpMethod !== "POST") {
       return { statusCode: 405, body: "Method Not Allowed" };
     }
