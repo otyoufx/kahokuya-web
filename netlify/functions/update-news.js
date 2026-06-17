@@ -7,15 +7,15 @@ exports.handler = async (event) => {
       };
     }
 
-    const { from, subject, body } = JSON.parse(event.body);
-    const newBody = body.trim();
+    // ▼ GAS から送られてくるデータ（画像URLのみ）
+    const { images, folderName } = JSON.parse(event.body);
 
-    // 今日の日付 YYYY/MM/DD
-    const now = new Date();
-    const yyyy = now.getFullYear();
-    const mm = String(now.getMonth() + 1).padStart(2, "0");
-    const dd = String(now.getDate()).padStart(2, "0");
-    const today = `${yyyy}/${mm}/${dd}`;
+    if (!images || images.length === 0) {
+      return {
+        statusCode: 400,
+        body: "No images provided"
+      };
+    }
 
     const token = process.env.GITHUB_TOKEN;
     const repoOwner = "otyoufx";
@@ -29,14 +29,13 @@ exports.handler = async (event) => {
       };
     }
 
-    // ▼ GitHub API 共通ヘッダー（通信安定版）
     const headers = {
       Authorization: `Bearer ${token}`,
       Accept: "application/vnd.github+json",
       "User-Agent": "NetlifyFunction"
     };
 
-    // ▼ 現在の data.json を取得
+    // ▼ data.json を取得
     const getRes = await fetch(
       `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
       { headers }
@@ -56,32 +55,22 @@ exports.handler = async (event) => {
       Buffer.from(getData.content, "base64").toString("utf8")
     );
 
-    // ▼ 差分チェック：本文が同じなら更新しない
-    if (
-      currentJson.notice &&
-      typeof currentJson.notice.body === "string" &&
-      currentJson.notice.body.trim() === newBody
-    ) {
-      console.log("No change detected. Skip update.");
-      return {
-        statusCode: 200,
-        body: "no change"
-      };
-    }
+    // ▼ “お知らせ” 関連は一切触らない
+    // notice というキーも使わない
 
-    // ▼ notice を上書き
-    currentJson.notice = {
-      enabled: true,
-      title: today,
-      body: newBody
-    };
+    // ▼ 画像ストック専用のキーに保存
+    currentJson.images = images;
+
+    if (folderName) {
+      currentJson.imageFolder = folderName;
+    }
 
     // ▼ base64 に変換
     const newContent = Buffer.from(
       JSON.stringify(currentJson, null, 2)
     ).toString("base64");
 
-    // ▼ GitHub API へ PUT
+    // ▼ GitHub PUT
     const putRes = await fetch(
       `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`,
       {
@@ -91,7 +80,7 @@ exports.handler = async (event) => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          message: "update notice [skip ci]",
+          message: "update images only [skip ci]",
           content: newContent,
           sha: getData.sha
         })
@@ -103,13 +92,13 @@ exports.handler = async (event) => {
       console.error("GitHub PUT error:", text);
       return {
         statusCode: 500,
-        body: "お知らせの更新に失敗しました。"
+        body: "画像の更新に失敗しました。"
       };
     }
 
     return {
       statusCode: 200,
-      body: "notice updated"
+      body: "images updated"
     };
 
   } catch (err) {

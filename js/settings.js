@@ -18,6 +18,64 @@ function createCell() {
   `;
 }
 
+// ▼ 日付フォーマット変換（2026-06-17_2003 → 2026/06/17 20:03）
+function formatFolderName(folder) {
+  if (!folder) return "受信日時不明";
+
+  const [date, time] = folder.split("_");
+  const [y, m, d] = date.split("-");
+  const HH = time.slice(0, 2);
+  const MM = time.slice(2, 4);
+
+  return `${y}/${m}/${d} ${HH}:${MM} 受信分`;
+}
+
+// ▼ 画像一覧を生成
+function renderImages(images, folderName) {
+  const container = document.getElementById("imageList");
+  container.innerHTML = ""; // 初期化
+
+  if (!images || images.length === 0) {
+    container.innerHTML = "<p>画像はありません。</p>";
+    return;
+  }
+
+  // グループ枠
+  const group = document.createElement("div");
+  group.className = "image-group";
+
+  // タイトル
+  const title = document.createElement("div");
+  title.className = "image-group-title";
+  title.textContent = formatFolderName(folderName);
+  group.appendChild(title);
+
+  // 2列グリッド
+  const grid = document.createElement("div");
+  grid.className = "image-grid";
+
+  images.forEach((url, index) => {
+    const card = document.createElement("div");
+    card.className = "image-card";
+
+    const label = document.createElement("label");
+    label.innerHTML = `
+      <input type="checkbox" class="image-check" value="${url}">
+      ${String(index + 1).padStart(2, "0")}.jpg
+    `;
+    card.appendChild(label);
+
+    const img = document.createElement("img");
+    img.src = url;
+    card.appendChild(img);
+
+    grid.appendChild(card);
+  });
+
+  group.appendChild(grid);
+  container.appendChild(group);
+}
+
 // ▼ 初期ロード
 async function loadSettingsToUI() {
   const res = await fetch("/.netlify/functions/get-settings");
@@ -58,9 +116,12 @@ async function loadSettingsToUI() {
     nightCell.querySelector(".end").value = nightSlot.end;
   });
 
-  // お知らせ（タイトル欄は削除したので読み込まない）
+  // お知らせ
   document.getElementById("noticeEnabled").checked = data.notice.enabled;
   document.querySelector(".notice-body").value = data.notice.body;
+
+  // ▼ 画像一覧を描画
+  renderImages(data.images, data.imageFolder);
 }
 
 loadSettingsToUI();
@@ -115,7 +176,7 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
     schedule,
     notice: {
       enabled: document.getElementById("noticeEnabled").checked,
-      title: today,  // ← 自動生成
+      title: today,
       body: document.querySelector(".notice-body").value.trim()
     },
     password: document.getElementById("updatePass").value

@@ -1,9 +1,8 @@
-// save-settings.js
 exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
 
-    // ▼ パスワード判定（最優先）
+    // ▼ パスワード判定
     if (!body.password || body.password !== process.env.ADMIN_PASSCODE) {
       return {
         statusCode: 403,
@@ -11,10 +10,15 @@ exports.handler = async (event) => {
       };
     }
 
-    // ▼ 保存用データから password を除外
-    const saveData = { ...body };
-    delete saveData.password;
+    // ▼ 画像枚数チェック（4枚以上ならエラー）
+    if (body.notice.images && body.notice.images.length > 3) {
+      return {
+        statusCode: 400,
+        body: "画像が4枚以上選ばれています！\n画像は3枚以下にしてください！"
+      };
+    }
 
+    // ▼ ここから先は今まで通り
     const token = process.env.GITHUB_TOKEN;
     const repoOwner = "otyoufx";
     const repoName = "kahokuya-web";
