@@ -155,6 +155,19 @@
       border-bottom: 1px solid #ddd;
       margin: 8px 0 12px 0;
     }
+    
+    .notice-images {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .notice-image {
+      width: 30%;
+      max-width: 200px;
+      border-radius: 6px;
+    }
   </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9948349926149649"
@@ -189,6 +202,7 @@
       <div id="notice-area" style="font-size:0.9rem; line-height:1.5; margin-bottom:12px;">
         （お知らせを読み込み中…）
       </div>
+      <div id="noticeImages" class="notice-images"></div>
 
       <div class="notice-divider"></div>
 
@@ -458,47 +472,72 @@
     <!-- 新仕様ロジック -->
     <script src="/js/main.js"></script>
 
-    <!-- 設定反映（get-settings → 営業状況・営業時間・お知らせ） -->
-    <script>
-      async function loadSettings() {
-        try {
-          const res = await fetch("/.netlify/functions/get-settings", { cache: "no-store" });
-          if (!res.ok) throw new Error("get-settings failed");
+<!-- 設定反映（get-settings → 営業状況・営業時間・お知らせ） -->
+<script>
+  // ▼ お知らせ画像を描画する（最大3枚）
+  function renderNoticeImages(images) {
+    const container = document.getElementById("noticeImages");
+    container.innerHTML = "";
 
-          const data = await res.json();
+    if (!images || images.length === 0) {
+      return; // 画像なし → 何も表示しない
+    }
 
-          // main.js に渡す
-          window.__settings = data;
+    images.forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.className = "notice-image";
+      container.appendChild(img);
+    });
+  }
 
-          // 営業状況を更新
-          updateBusinessStatus();
+    // ▼ 設定読み込み
+    async function loadSettings() {
+      try {
+        const res = await fetch("/.netlify/functions/get-settings", { cache: "no-store" });
+        if (!res.ok) throw new Error("get-settings failed");
 
-          // 営業日・営業時間テーブル（◯✕）を更新
-          updateScheduleTable();
+        const data = await res.json();
 
-          // 営業日・営業時間テキスト（平日・土曜・日曜・祝日・定休日）を更新
-          updateBusinessText();
+        // main.js に渡す
+        window.__settings = data;
 
-          // お知らせ
-          const noticeArea = document.getElementById("notice-area");
-          if (data.notice && data.notice.enabled) {
-            noticeArea.innerHTML = `
-              <strong>${data.notice.title}</strong><br>
-              <span>${data.notice.body}</span>
-            `;
-          } else {
-            noticeArea.textContent = "（お知らせはありません）";
-          }
+        // 営業状況を更新
+        updateBusinessStatus();
 
-        } catch (err) {
-          console.error("設定の読み込みに失敗:", err);
-          document.getElementById("now-status").textContent = "設定の読み込みに失敗しました";
+        // 営業日・営業時間テーブル（◯✕）を更新
+        updateScheduleTable();
+
+        // 営業日・営業時間テキスト（平日・土曜・日曜・祝日・定休日）を更新
+        updateBusinessText();
+
+        // ▼ お知らせ表示
+        const noticeArea = document.getElementById("notice-area");
+        const noticeImagesArea = document.getElementById("noticeImages");
+
+        if (data.notice && data.notice.enabled) {
+          noticeArea.innerHTML = `
+            <strong>${data.notice.title}</strong><br>
+            <span>${data.notice.body}</span>
+          `;
+
+          // ▼ お知らせ画像を表示（最大3枚）
+          renderNoticeImages(data.notice.images);
+
+        } else {
+          noticeArea.textContent = "（お知らせはありません）";
+          noticeImagesArea.innerHTML = ""; // 画像も消す
         }
-      }
 
-      loadSettings();
-      setInterval(updateBusinessStatus, 60000);
-    </script>
+      } catch (err) {
+        console.error("設定の読み込みに失敗:", err);
+        document.getElementById("now-status").textContent = "設定の読み込みに失敗しました";
+      }
+    }
+
+    loadSettings();
+    setInterval(updateBusinessStatus, 60000);
+  </script>
 
     <!-- メニュータブ切り替え -->
     <script>
