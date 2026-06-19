@@ -10,15 +10,32 @@ exports.handler = async (event) => {
       };
     }
 
-    // ▼ 画像枚数チェック（4枚以上ならエラー）
-    if (body.notice.images && body.notice.images.length > 3) {
+    // ▼ notice.images が無い場合は空配列にする（＝画像なし）
+    const noticeImages = Array.isArray(body.notice.images)
+      ? body.notice.images
+      : [];
+
+    // ▼ 画像枚数チェック（3枚まで）
+    if (noticeImages.length > 3) {
       return {
         statusCode: 400,
         body: "画像が4枚以上選ばれています！\n画像は3枚以下にしてください！"
       };
     }
 
-    // ▼ ここから先は今まで通り
+    // ▼ 保存用データを構築（画像は notice.images のみ）
+    const saveData = {
+      forceClosed: body.forceClosed,
+      schedule: body.schedule,
+      notice: {
+        enabled: body.notice.enabled,
+        title: body.notice.title,
+        body: body.notice.body,
+        images: noticeImages   // ← ここに保存
+      }
+    };
+
+    // ▼ GitHub API 情報
     const token = process.env.GITHUB_TOKEN;
     const repoOwner = "otyoufx";
     const repoName = "kahokuya-web";
@@ -55,10 +72,9 @@ exports.handler = async (event) => {
     const getData = await getRes.json();
 
     // ▼ 更新内容を base64 に変換
-    const newContent = Buffer.from(JSON.stringify(saveData, null, 2)).toString("base64");
-
-    // ▼ Netlify ビルドをスキップするコミットメッセージ
-    const commitMessage = "update settings [skip ci]";
+    const newContent = Buffer.from(
+      JSON.stringify(saveData, null, 2)
+    ).toString("base64");
 
     // ▼ GitHub API へ PUT（更新）
     const putRes = await fetch(
@@ -71,7 +87,7 @@ exports.handler = async (event) => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          message: commitMessage,
+          message: "update settings [skip ci]",
           content: newContent,
           sha: getData.sha
         })
