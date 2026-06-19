@@ -1,7 +1,15 @@
+// ===============================================
+// 営業設定・お知らせ設定・画像選択 UI 制御
+// image-stock.json（画像DB）対応版
+// ===============================================
+
+// 曜日キーと表示ラベル
 const WEEK_KEYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "holiday"];
 const WEEK_LABELS = ["月", "火", "水", "木", "金", "土", "日", "祝"];
 
-// ▼ UI のセル生成
+// ---------------------------------------------------------------
+// UI のセル生成（昼・夜の営業設定）
+// ---------------------------------------------------------------
 function createCell() {
   return `
     <div>
@@ -18,7 +26,9 @@ function createCell() {
   `;
 }
 
-// ▼ 日付フォーマット変換（2026-06-17_2003 → 2026/06/17 20:03）
+// ---------------------------------------------------------------
+// フォルダ名 → 表示用日付（2026-06-17_2003 → 2026/06/17 20:03）
+// ---------------------------------------------------------------
 function formatFolderName(folder) {
   if (!folder) return "受信日時不明";
 
@@ -30,7 +40,9 @@ function formatFolderName(folder) {
   return `${y}/${m}/${d} ${HH}:${MM} 受信分`;
 }
 
-// ▼ 画像一覧を生成
+// ---------------------------------------------------------------
+// 画像一覧の描画（最新セットのみ）
+// ---------------------------------------------------------------
 function renderImages(images, folderName) {
   const container = document.getElementById("imageList");
   container.innerHTML = ""; // 初期化
@@ -44,7 +56,7 @@ function renderImages(images, folderName) {
   const group = document.createElement("div");
   group.className = "image-group";
 
-  // タイトル
+  // タイトル（受信日時）
   const title = document.createElement("div");
   title.className = "image-group-title";
   title.textContent = formatFolderName(folderName);
@@ -58,6 +70,7 @@ function renderImages(images, folderName) {
     const card = document.createElement("div");
     card.className = "image-card";
 
+    // チェックボックス
     const label = document.createElement("label");
     label.innerHTML = `
       <input type="checkbox" class="image-check" value="${url}">
@@ -65,6 +78,7 @@ function renderImages(images, folderName) {
     `;
     card.appendChild(label);
 
+    // 画像本体
     const img = document.createElement("img");
     img.src = url;
     card.appendChild(img);
@@ -76,15 +90,20 @@ function renderImages(images, folderName) {
   container.appendChild(group);
 }
 
-// ▼ 初期ロード
+// ---------------------------------------------------------------
+// 初期ロード：設定読み込み + 画像DB読み込み
+// ---------------------------------------------------------------
 async function loadSettingsToUI() {
+  // ▼ 1. data.json（営業設定・お知らせ設定）を取得
   const res = await fetch("/.netlify/functions/get-settings?ts=" + Date.now());
   const data = await res.json();
 
-  // 営業モード
-  document.querySelector(`input[name='forceClosed'][value='${data.forceClosed ? "closed" : "open"}']`).checked = true;
+  // ▼ 営業モード反映
+  document.querySelector(
+    `input[name='forceClosed'][value='${data.forceClosed ? "closed" : "open"}']`
+  ).checked = true;
 
-  // テーブル生成
+  // ▼ 営業時間テーブル生成
   const dayRow = document.querySelector("tr[data-slot='day']");
   const nightRow = document.querySelector("tr[data-slot='night']");
 
@@ -98,7 +117,7 @@ async function loadSettingsToUI() {
     nightRow.appendChild(td2);
   });
 
-  // データ反映
+  // ▼ 営業時間データ反映
   WEEK_KEYS.forEach((key, i) => {
     const daySlot = data.schedule[key].day;
     const nightSlot = data.schedule[key].night;
@@ -116,26 +135,37 @@ async function loadSettingsToUI() {
     nightCell.querySelector(".end").value = nightSlot.end;
   });
 
-  // お知らせ
+  // ▼ お知らせ設定
   document.getElementById("noticeEnabled").checked = data.notice.enabled;
   document.querySelector(".notice-body").value = data.notice.body;
 
-  // ▼ 画像一覧を描画
-  renderImages(data.images, data.imageFolder);
+  // -----------------------------------------------------------
+  // ▼ 2. image-stock.json（画像DB）を取得して最新セットを表示
+  // -----------------------------------------------------------
+  const stockRes = await fetch("/netlify/functions/image-stock.json?ts=" + Date.now());
+  const stock = await stockRes.json();
+
+  if (!Array.isArray(stock) || stock.length === 0) {
+    renderImages([], null);
+  } else {
+    const latest = stock[0]; // unshift で常に先頭が最新
+    renderImages(latest.images, latest.date);
+  }
 }
 
 loadSettingsToUI();
 
-
-// ▼ 保存処理
+// ---------------------------------------------------------------
+// 保存処理（営業設定・お知らせ設定のみ）
+// ---------------------------------------------------------------
 document.getElementById("saveBtn").addEventListener("click", async () => {
   const forceClosed = document.querySelector("input[name='forceClosed']:checked").value === "closed";
 
   const schedule = {};
-
   const dayRow = document.querySelector("tr[data-slot='day']");
   const nightRow = document.querySelector("tr[data-slot='night']");
 
+  // ▼ 営業時間の収集
   WEEK_KEYS.forEach((key, i) => {
     const dayCell = dayRow.children[i + 1];
     const nightCell = nightRow.children[i + 1];
@@ -164,13 +194,14 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
     };
   });
 
-  // ▼ 今日の日付 YYYY/MM/DD を自動生成
+  // ▼ 今日の日付（お知らせタイトル用）
   const now = new Date();
   const yyyy = now.getFullYear();
   const mm = String(now.getMonth() + 1).padStart(2, "0");
   const dd = String(now.getDate()).padStart(2, "0");
   const today = `${yyyy}/${mm}/${dd}`;
 
+  // ▼ 保存 payload
   const payload = {
     forceClosed,
     schedule,
@@ -182,6 +213,7 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
     password: document.getElementById("updatePass").value
   };
 
+  // ▼ 保存 API 呼び出し
   const res = await fetch("/.netlify/functions/save-settings", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -192,6 +224,9 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
   alert(text);
 });
 
+// ---------------------------------------------------------------
+// パスワード表示切替
+// ---------------------------------------------------------------
 document.getElementById("togglePass").addEventListener("click", () => {
   const pass = document.getElementById("updatePass");
   pass.type = pass.type === "password" ? "text" : "password";
