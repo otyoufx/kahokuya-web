@@ -4,120 +4,123 @@
     "monday": {
       "day": {
         "openMark": "◯",
-        "enabled": true,
         "start": "11:00",
-        "end": "14:00"
+        "end": "14:00",
+        "enabled": "14:00"
       },
       "night": {
         "openMark": "◯",
-        "enabled": true,
         "start": "17:00",
-        "end": "21:30"
+        "end": "21:30",
+        "enabled": "21:30"
       }
     },
     "tuesday": {
       "day": {
         "openMark": "✕",
-        "enabled": false,
         "start": "",
-        "end": ""
+        "end": "",
+        "enabled": false
       },
       "night": {
         "openMark": "✕",
-        "enabled": false,
         "start": "",
-        "end": ""
+        "end": "",
+        "enabled": false
       }
     },
     "wednesday": {
       "day": {
         "openMark": "◯",
-        "enabled": true,
         "start": "11:00",
-        "end": "14:00"
+        "end": "14:00",
+        "enabled": "14:00"
       },
       "night": {
         "openMark": "◯",
-        "enabled": true,
         "start": "17:00",
-        "end": "21:30"
+        "end": "21:30",
+        "enabled": "21:30"
       }
     },
     "thursday": {
       "day": {
         "openMark": "◯",
-        "enabled": true,
         "start": "11:00",
-        "end": "14:00"
+        "end": "14:00",
+        "enabled": "14:00"
       },
       "night": {
         "openMark": "◯",
-        "enabled": true,
         "start": "17:00",
-        "end": "21:30"
+        "end": "21:30",
+        "enabled": "21:30"
       }
     },
     "friday": {
       "day": {
         "openMark": "◯",
-        "enabled": true,
         "start": "11:00",
-        "end": "14:00"
+        "end": "14:00",
+        "enabled": "14:00"
       },
       "night": {
         "openMark": "◯",
-        "enabled": true,
         "start": "17:00",
-        "end": "21:30"
+        "end": "21:30",
+        "enabled": "21:30"
       }
     },
     "saturday": {
       "day": {
         "openMark": "◯",
-        "enabled": true,
         "start": "11:00",
-        "end": "15:00"
+        "end": "15:00",
+        "enabled": "15:00"
       },
       "night": {
         "openMark": "◯",
-        "enabled": true,
         "start": "17:00",
-        "end": "21:30"
+        "end": "21:30",
+        "enabled": "21:30"
       }
     },
     "sunday": {
       "day": {
         "openMark": "◯",
-        "enabled": true,
         "start": "11:00",
-        "end": "15:00"
+        "end": "15:00",
+        "enabled": "15:00"
       },
       "night": {
         "openMark": "✕",
-        "enabled": false,
         "start": "",
-        "end": ""
+        "end": "",
+        "enabled": false
       }
     },
     "holiday": {
       "day": {
         "openMark": "✕",
-        "enabled": false,
         "start": "",
-        "end": ""
+        "end": "",
+        "enabled": false
       },
       "night": {
         "openMark": "✕",
-        "enabled": false,
         "start": "",
-        "end": ""
+        "end": "",
+        "enabled": false
       }
     }
   },
   "notice": {
     "enabled": true,
-    "title": "2026/06/19",
-    "body": "自家製ハムペーストも山形ワインに合いますよ。是非！ちなみに。明日火曜日は定休日です。",
-    "images": []
+    "title": "2026/06/20",
+    "body": "自家製ハムペーストも山形ワインに合いますよ。是非！\n火曜日は定休日です。",
+    "images": [
+      "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-06-19_2155/02.jpg",
+      "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-06-19_2155/04.jpg"
+    ]
   }
 }
