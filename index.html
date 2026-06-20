@@ -518,7 +518,9 @@
         if (data.notice && data.notice.enabled) {
           noticeArea.innerHTML = `
             <strong>${data.notice.title}</strong><br>
-            <span>${data.notice.body}</span>
+            <pre style="white-space:pre; font-size:0.9rem; line-height:1.5; margin:0;">
+${data.notice.body}
+            </pre>
           `;
 
           // ▼ お知らせ画像を表示（最大3枚）
