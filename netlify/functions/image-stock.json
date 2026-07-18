@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-07-18_1055",
+    "images": [
+      "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-07-18_1055/01.jpg"
+    ]
+  },
+  {
     "date": "2026-07-18_0737",
     "images": [
       "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-07-18_0737/01.jpg"
@@ -9,15 +15,6 @@
     "date": "2026-06-20_1522",
     "images": [
       "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-06-20_1522/01.jpg"
-    ]
-  },
-  {
-    "date": "2026-06-20_1447",
-    "images": [
-      "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-06-20_1447/01.jpg",
-      "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-06-20_1447/02.jpg",
-      "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-06-20_1447/03.jpg",
-      "https://raw.githubusercontent.com/otyoufx/kahokuya-web/main/public-images/2026-06-20_1447/04.jpg"
     ]
   }
 ]
